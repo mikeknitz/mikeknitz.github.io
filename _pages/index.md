@@ -2,10 +2,10 @@
 layout: defaults/page
 permalink: index.html
 narrow: true
-title: Home page
+# title: Home page
 ---
 
-Home!
+Hello there
 
 ### Recent Posts
 
