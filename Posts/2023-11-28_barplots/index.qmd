@@ -1,0 +1,188 @@
+---
+title: "Barplots"
+author: "Michael Knitz"
+date: "2023-11-28"
+date-modified: "2023-11-28"
+categories: [ggplot2, barplots]
+# image: "image.jpg" # thumbnail for post, relative to this file
+---
+
+```{r, include = FALSE}
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+Barplots are not terribly straightforward. Here are some templates I reference from time to time.
+
+## Libraries
+
+```{r}
+library(dplyr)
+library(tibble)
+library(tidyr)
+library(ggplot2)
+library(ggnewscale)
+library(cowplot)
+```
+
+## Functions & Helpers
+
+```{r}
+#| code-fold: true
+
+hex_opacity_to_opaque <- function(hex, opacity) {
+    # hex = vector of hex codes
+    # opacity = decimal e.g. 0.65
+    # Returns hex codes equivalent in color to applying the opacity
+    # but they remain opaque
+    rgb_cols <- grDevices::col2rgb(hex)
+    return_hex <- character(length = length(hex))
+    for (i in seq_along(hex)) {
+        old_red <- rgb_cols[1, i]
+        new_red <- 255 - (opacity * (255 - old_red))
+        old_green <- rgb_cols[2, i]
+        new_green <- 255 - (opacity * (255 - old_green))
+        old_blue <- rgb_cols[3, i]
+        new_blue <- 255 - (opacity * (255 - old_blue))
+        return_hex[i] <- rgb(new_red, new_green, new_blue, maxColorValue = 255)
+    }
+    return_hex
+}
+
+bar_theme <- theme(
+    plot.title    = element_text(size = 14, hjust = 0),
+    plot.subtitle = element_text(size = 10, hjust = 0),
+    plot.caption  = element_text(size = 10, hjust = 0),
+    plot.caption.position  = "panel",
+    axis.title.x  = element_blank(),
+    axis.title.y  = element_text(size = 12),
+    axis.text.x = element_text(color = "#252525", size = 12, angle = 45, hjust = 1),
+    axis.text.y = element_text(color = "#252525", size = 10),
+    axis.ticks.x = element_blank(),
+    axis.line.y = element_line(),
+    axis.line.x = element_line(),
+    panel.grid.major.y = element_line(linewidth = 0.20, linetype = 1, color = "black"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank(),
+    panel.background = element_rect(fill = "transparent", color = NA),
+    plot.background  = element_rect(fill = "transparent", color = NA),
+    legend.position        = "none",
+    plot.margin = margin(0.5, 0.5, 0.5, 0.5, unit = "in")
+)
+```
+
+## Example Data
+
+Example data from `ggplot2` package.
+
+```{r}
+data <- ggplot2::mpg
+```
+
+Oftentimes I'll make some minor tweaks to a dataset in a disposable object called `dp` ("data plot"). For instance, here I'll subset the `manufacturer` column to just a few brands. I can also do all sorts of changes without worrying about messing too much with a data object that might be used all over the place in an analysis.
+
+This subsetting could also be done within a call to `ggplot2::ggplot()`, but I like to make it transparent all in one section or series of pipes.
+
+```{r}
+dp <- data |>
+    dplyr::filter(manufacturer %in% c("audi", "dodge", "ford", "honda")) |>
+    dplyr::mutate(manufacturer = factor(manufacturer)) |>
+    dplyr::select(manufacturer, hwy)
+
+lapply(dp, \(x) summary(x))
+```
+
+## Barplot with dots and errorbars
+
+Since we are dealing with long data, we can use `ggplot2::stat_summary()` to compute the height of the bars (the means). Normally, `geom_col()` would take just the height of each bar, or `geom_bar()` might count the instances of each. Similarly, we can compute the errorbars with `ggplot2::mean_se()`
+
+```{r, fig.dim = c(3.5, 4), out.width = "60%"}
+colors <- c("#CC0B00", "#5D88DA", "#02AF66", "#02B5E2")
+
+p <- ggplot(dp, aes(x = manufacturer, y = hwy)) +
+    stat_summary(aes(fill = manufacturer),
+        geom = "col", fun = mean, width = 0.85, color = "black") +
+    stat_summary(geom = "errorbar", fun.data = mean_se,
+        width = 0.5, linewidth = 0.5) +
+    geom_point(shape = 21, size = 2, fill = "white",
+        position = position_jitter(width = 0.35)) +
+    scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+    scale_fill_manual(values = colors) +
+    bar_theme +
+    labs(
+        title = "Mileage by Manufacturer",
+        subtitle = "miles per gallon (mpg)",
+        caption = "Here is a caption."
+    )
+    
+p
+```
+
+The white dots look okay. You could also color the dots by group, but I don't really like the bars and dots being the exact same color.
+
+```{r, fig.dim = c(7.5, 4)}
+#| code-fold: true
+cowplot::plot_grid(
+    p + labs(title = "White dots", subtitle = NULL, caption = NULL),
+    ggplot(dp, aes(x = manufacturer, y = hwy)) +
+        stat_summary(aes(fill = manufacturer),
+            geom = "col", fun = mean, width = 0.85, color = "black") +
+        stat_summary(geom = "errorbar", fun.data = mean_se,
+            width = 0.5, linewidth = 0.5) +
+        geom_point(aes(fill = manufacturer), shape = 21, size = 2,
+            position = position_jitter(width = 0.35)) +
+        scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+        scale_fill_manual(values = colors) +
+        bar_theme +
+        labs(title = "Colored dots"),
+    nrow = 1
+)
+```
+
+When you set the colors of a `fill` aesthetic using `scale_fill_manual()`, it sets the colors for all of the layers. You can use `ggnewscale::new_scale_fill()` to make different colors, allowing you to call `scale_fill_manual()` more than once.
+
+I like how things look when the bars are a bit lighter than the points. I like to set the colors once (just one palette to worry about), and then I use a function to lighten up all the colors. You could use something with `alpha` to change the opacity, but I don't like how this makes the gridlines and anything else behind it come through. So I use a function defined above `hex_opacity_to_opaque()` which takes colors and returns non-transparent lightened versions of each color.
+
+```{r, fig.dim = c(3.5, 4), out.width = "60%"}
+colors <- c("#CC0B00", "#5D88DA", "#02AF66", "#02B5E2")
+
+ggplot(dp, aes(x = manufacturer, y = hwy)) +
+    stat_summary(aes(fill = manufacturer),
+        geom = "col", fun = mean, width = 0.85, color = "black") +
+    scale_fill_manual(values = hex_opacity_to_opaque(colors, 0.6)) +
+    new_scale_fill() +
+    stat_summary(geom = "errorbar", fun.data = mean_se,
+        width = 0.5, linewidth = 0.5) +
+    geom_point(aes(fill = manufacturer), shape = 21, size = 2,
+        position = position_jitter(width = 0.35)) +
+    scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+    scale_fill_manual(values = colors) +
+    bar_theme +
+    labs(
+        title = "Mileage by Manufacturer",
+        subtitle = "miles per gallon (mpg)",
+        caption = "Here is a caption."
+    )
+```
+
+## Using "dodge"
+
+In the above example, the `fill` aesthetic does not pose any problems for spacing and alignment, as each bar on the x-axis maps 1:1 with the colors given to each bar.
+
+When you set a `fill` aesthetic that is different from the x-axis categories, each bar will "dodge" into respective colors, in this instance.
+
+---------------------
+
+<details style="margin-bottom:10px;">
+<summary style="color:black;">
+Session info
+</summary>
+
+```{r, echo = FALSE}
+print(sessioninfo::session_info())
+```
+
+</details>
