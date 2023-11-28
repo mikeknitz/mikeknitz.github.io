@@ -1,0 +1,15 @@
+---
+title: "Test post"
+author: "Michael Knitz"
+date: "2023-11-28"
+categories: [test1, test2]
+# image: "image.jpg" # thumbnail for post, relative to this file
+---
+
+Test content
+
+Some code
+
+```{r}
+1 + 1
+```

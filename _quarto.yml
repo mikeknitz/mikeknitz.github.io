@@ -1,0 +1,42 @@
+project:
+    type: website
+    output-dir: docs
+    preview:
+        port: 5540
+        browser: false
+
+website:
+    title: "Michael Knitz"
+    search:
+        location: sidebar
+        type: overlay
+        limit: 50
+    reader-mode: true
+    sidebar:
+        title: <a href='/index.html'>Michael Knitz</a>
+        style: "floating"
+        collapse-level: 4
+        # contents:
+            # - auto: Posts
+
+format:
+    html:
+        css: assets/custom.scss
+        # bibliography: references.bib
+        # csl: assets/nature-medicine.csl
+        code-overflow: scroll
+        code-tools: true
+        # embed-resources: true
+        highlight-style: github
+        theme:
+            light: lumen
+        toc: true
+        toc-expand: true
+        toc-depth: 4
+        toc-location: right
+        toc-collapsed: false
+        grid:
+            sidebar-width: 300px
+            body-width: 1000px
+            margin-width: 500px
+            gutter-width: 1.5rem

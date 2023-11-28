@@ -1,0 +1,15 @@
+---
+title: Michael Knitz
+listing:
+    contents: Posts
+    sort: "date desc"
+    type: default
+    categories: true
+    sort-ui: false
+    filter-ui: false
+code-tools: false
+# page-layout: full
+# title-block-banner: false
+---
+
+## Posts

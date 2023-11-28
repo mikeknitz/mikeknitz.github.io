@@ -1,0 +1,14 @@
+{
+  "hash": "7dcfc4985f3b9f975ed0e9a9e7124865",
+  "result": {
+    "markdown": "---\ntitle: \"Test post\"\nauthor: \"Michael Knitz\"\ndate: \"2023-11-28\"\ncategories: [test1, test2]\n# image: \"image.jpg\" # thumbnail for post, relative to this file\n---\n\n\nTest content\n\nSome code\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
