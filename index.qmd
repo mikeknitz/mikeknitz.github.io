@@ -12,6 +12,20 @@ code-tools: false
 # title-block-banner: false
 ---
 
+<!-- Hiding h1 title just on homepage -->
+<!-- I'm sure there is a better way to do this -->
+
+```{r, include = FALSE}
+# I forget how to specifically set engine as knitr, this will coax it I think
+1 + 1
+```
+
+```{css, echo = FALSE}
+h1 {
+    display: none;
+}
+```
+
 Here's where I'll be posting random things, mostly snippets of R code for learning and future reference.
 
 ## Posts
