@@ -2,6 +2,7 @@
 title: "Quarto snippets"
 author: "Michael Knitz"
 date: "2023-11-28"
+date-modified: "2023-11-29"
 categories: [r, quarto]
 ---
 
@@ -12,7 +13,11 @@ knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
     warning = FALSE)
 ```
 
+I'm usually re-using the same old Quarto templates. These are syntax and patterns I like to reference.
+
 ## Single Quarto document template
+
+These items, along with session info at the bottom of the document, are what I usually use for an analysis in a single notebook. One could ditch the single document workflow and instead use a `_quarto.yml` in the root of the project, but for speed and low complexity, I like keeping things self-contained when possible.
 
 ### Frontmatter
 
@@ -109,7 +114,105 @@ path_output <- fs::dir_create("output/02")
 LOAD_FROM_CACHED <- TRUE
 ```
 
-### Session Info
+## Show external functions
+
+- See [Source functions from an environment](../2023-11-29_functions_in_environment/functions_in_environment.qmd)
+  
+## Programmatically fill tabset panels
+
+First, create a "panel-tabset". Something about setting a group can deal with issues of clashing names of the tabs among other tabsets, so I always set a random string.
+
+``` quarto
+::: {.panel-tabset group="XXX"}
+
+<!-- markdown headings become tabs -->
+
+:::
+```
+
+When using `results = "asis"` for an R chunk, it will output raw markdown, which makes adding images via markdown format easiest: `![]()`. There are some workarounds out there where you might actually programmatically add executable code chunks (which might render images themselves), but I find it easy to generate several images first, save them to a directory, and then iterate through those images and render them with markdown syntax:
+
+E.g.,
+
+```{r}
+suppressPackageStartupMessages(library(ggplot2))
+path_dir <- fs::dir_create("my_plots")
+plots <- c("plot1", "plot2", "plot3")
+purrr::walk(plots, \(plot) {
+    p <- ggplot(mpg, aes(x = hwy)) + geom_density() + labs(title = plot)
+    ggsave(fs::path(path_dir, paste0(plot, ".png")), p, "png",
+        width = 4, height = 3, units = "in")
+})
+```
+
+```{r, eval = FALSE}
+# Chunk options
+# ```{r, echo = FALSE, fig.align = "default", results = "asis"}
+# Sometimes I've run into issues with fig.align = "center", which
+    # I keep as a default, so I unset it just for this chunk
+
+purrr::walk(plots, \(plot) {
+    cat("##### ", plot, "\n\n") # Set heading level one below parent
+    cat("![](", fs::path(path_dir, paste0(plot, ".png")), ")\n")
+    cat("\n\n")
+})
+```
+
+The images will take up the width of the body of the document. With markdown syntax, you can change the width of the images with something like `{width="600px"}`
+
+::: {.panel-tabset group="XXX"}
+
+```{r, echo = FALSE, fig.align = "default", results = "asis"}
+# Chunk options
+# ```{r, echo = FALSE, fig.align = "default", results = "asis"}
+# Sometimes I've run into issues with fig.align = "center", which
+    # I keep as a default, so I unset it just for this chunk
+
+purrr::walk(plots, \(plot) {
+    cat("##### ", plot, "\n\n") # Set heading level one below parent
+    cat("![](", fs::path(path_dir, paste0(plot, ".png")), ")\n")
+    cat("\n\n")
+})
+```
+
+:::
+
+## Grid layout large images
+
+For single quarto documents with no left-sidebar, I usually place the table of contents on the left side with the frontmatter `toc-location: left`. I also have a page layout something like:
+
+``` yaml
+grid:
+  sidebar-width: 500px
+  body-width: 1000px
+  margin-width: 500px
+  gutter-width: 1.5rem
+```
+
+For larger images / plots, you can increase the space they take up, overflowing to the right, with some sort of `{.column}` section, e.g.
+
+``` quarto
+::: {.column-screen-inset-right}
+:::
+```
+
+If they contain other sections marked by `:::`, increase the number of colons:
+
+``` quarto
+:::: {.column-screen-inset-right}
+
+::: {.panel-tabset}
+:::
+
+::::
+```
+
+
+## Session Info
+
+Here's how to display a collapsible section for the R session info:
+
+html:
 
 ``` html
 <details style="margin-bottom:10px;">
@@ -118,11 +221,14 @@ Session info
 </summary>
 ```
 
+R chunk:
+
 ``` r
 #| echo: false
 print(sessioninfo::session_info())
 ```
 
+html:
 
 ``` html
 </details>
