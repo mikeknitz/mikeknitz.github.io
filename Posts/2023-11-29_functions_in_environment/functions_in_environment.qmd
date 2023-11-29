@@ -1,0 +1,124 @@
+---
+title: "Source functions from an environment"
+author: "Michael Knitz"
+date: "2023-11-29"
+categories: [r, quarto, functions, environment]
+---
+
+```{r, include = FALSE}
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+Instead of throwing everything in `.GlobalEnv`, you can create your own environments for particular uses. Analyses with lots of steps in a particular order lend themselves to a functional paradigm, but it gets messy throwing everything step by step in a single notebook.
+
+Defining functions on the fly is quick and easy, but for tasks I'm likely to repeat in the future, or for operations that require some research for accuracy and wouldn't be quick to rewrite, I tend to write them in their own `.R` files, store them all in a folder, and source them at the beginning of a notebook. There's also the benefit of less visual clutter, so you can pack these files with a slew of validation operations and commentary. I like to name each `.R` file with the name of a singular function that is defined within, and it's important to write it such that there are no side effects—that way I can just drop relevant functions into any workspace needed.
+
+This workflow is sort of a half-baked implementation of a personal R package. But with functions that might be improved and evolved constantly, and avoiding unnecessary complexity, I think this does the trick. For clarity, I also like the use of `mk$` to prefix grabbing functions from the `mk` custom environment (see below). It helps to quickly parse where I'm using functions from packages rather than user-defined functions.
+
+```{r}
+data <- c(1, 2, 3)
+```
+
+**Typical workflow:**
+
+```{r}
+my_func <- function(x) {
+    x^2
+}
+
+my_func(data)
+```
+
+**Source a function to the global environment**
+
+```{r}
+source("my_dir/my_func_2.R")
+
+my_func_2(data)
+```
+
+**Source a function to a custom environment**
+
+```{r}
+mk <- new.env()
+sys.source("R/my_func_3.R", envir = mk)
+
+# Since `my_func_3` does not exist in the global environment
+# this will return an error
+try(my_func_3(data))
+
+# Works when you specify the environment
+mk$my_func_3(data)
+```
+
+**Source many .R files to a custom environment**
+
+After dropping a bunch of relevant functions in a workspace for an analysis, I'll usually throw this block towards the top of the notebook.
+
+```{r}
+# Source functions, helpers
+mk <- new.env()
+source_files <- list.files("R", recursive = TRUE, full.names = TRUE)
+invisible(lapply(as.list(source_files), \(x) sys.source(x, envir = mk)))
+```
+
+**Show functions in Quarto output**
+
+For finished analyses, I like documentation of the exact functions used, but this can be tough for a bunch of external functions sourced. I use this odd chunk of code to show each function in collapsible sections at the bottom of the rendered Quarto html document.
+
+``` r
+#| echo: false
+#| results: asis
+for (i in seq_along(source_files)) {
+    func_name <- stringr::str_replace(source_files[i], "^.+/(.+?)\\.R$", "\\1")
+    lines <- readr::read_lines(source_files[i])
+    cat(paste0('<details style="margin-bottom:10px">', "\n"))
+    cat(paste0('<summary style="color:black;">', "\n"))
+    cat(paste0(func_name, "\n"))
+    cat(paste0('</summary>', "\n"))
+    cat(paste(paste(rep("`", 3), collapse = ""), " r\n"))
+    cat(lines, sep = "\n")
+    cat("\n")
+    cat(paste(rep("`", 3), collapse = ""))
+    cat("\n")
+    cat(paste0('</details>', "\n\n"))
+}
+rm(i)
+```
+
+**Functions available in the `mk` environment**
+
+```{r, echo = FALSE, results = "asis"}
+for (i in seq_along(source_files)) {
+    func_name <- stringr::str_replace(source_files[i], "^.+/(.+?)\\.R$", "\\1")
+    lines <- readr::read_lines(source_files[i])
+    cat(paste0('<details style="margin-bottom:10px">', "\n"))
+    cat(paste0('<summary style="color:black;">', "\n"))
+    cat(paste0(func_name, "\n"))
+    cat(paste0('</summary>', "\n"))
+    cat(paste(paste(rep("`", 3), collapse = ""), " r\n"))
+    cat(lines, sep = "\n")
+    cat("\n")
+    cat(paste(rep("`", 3), collapse = ""))
+    cat("\n")
+    cat(paste0('</details>', "\n\n"))
+}
+rm(i)
+```
+
+---------------------
+
+<details style="margin-bottom:10px;">
+<summary style="color:black;">
+Session info
+</summary>
+
+```{r}
+#| echo: false
+print(sessioninfo::session_info())
+```
+
+</details>
