@@ -1,0 +1,84 @@
+---
+title: "R data structures"
+author: "Michael Knitz"
+date: "2023-11-28"
+categories: [quarto]
+---
+
+```{r, include = FALSE}
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+Data structures:
+
+- Vector
+    - Numeric
+    - Integer
+    - Character
+    - Factor
+    - Logical
+- List
+- Dataframe / Tibble
+
+## Lists
+
+### Create lists
+
+```{r}
+my_list <- list(a = 1, b = 2, c = c("a", "b", "c"))
+
+my_list
+```
+
+```{r}
+my_list <- c("a", "b", "c") |>
+    as.list()
+
+my_list
+```
+
+```{r}
+my_list <- c("name1" = "a", "name2" = "b", "name3" = "c") |>
+    as.list()
+
+my_list
+```
+
+### Concatenate lists
+
+```{r}
+a <- list(a = 1, b = 2, c = 3)
+b <- list(d = 4, e = 5, f = 6)
+
+c <- c(a, b)
+c
+str(c)
+class(c)
+```
+
+### Subsetting
+
+**Subsetting with `[]` returns a list**
+
+```{r}
+a <- list(a = 1, b = 2, c = 3)
+a_sub1 <- a[1:2]
+a_sub1
+```
+
+```{r}
+a_sub2 <- a[-2]
+a_sub2
+```
+
+**Subsetting with [[]] for a single element returns the element, not an object of class "list"**
+
+```{r}
+one_item <- a[[2]]
+one_item
+class(one_item)
+```
+

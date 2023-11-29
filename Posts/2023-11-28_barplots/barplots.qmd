@@ -3,7 +3,7 @@ title: "Barplots"
 author: "Michael Knitz"
 date: "2023-11-28"
 date-modified: "2023-11-28"
-categories: [ggplot2, barplots]
+categories: [ggplot]
 # image: "image.jpg" # thumbnail for post, relative to this file
 ---
 
@@ -147,6 +147,7 @@ When you set the colors of a `fill` aesthetic using `scale_fill_manual()`, it se
 I like how things look when the bars are a bit lighter than the points. I like to set the colors once (just one palette to worry about), and then I use a function to lighten up all the colors. You could use something with `alpha` to change the opacity, but I don't like how this makes the gridlines and anything else behind it come through. So I use a function defined above `hex_opacity_to_opaque()` which takes colors and returns non-transparent lightened versions of each color.
 
 ```{r, fig.dim = c(3.5, 4), out.width = "60%"}
+
 colors <- c("#CC0B00", "#5D88DA", "#02AF66", "#02B5E2")
 
 ggplot(dp, aes(x = manufacturer, y = hwy)) +

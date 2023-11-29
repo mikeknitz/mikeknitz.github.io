@@ -12,4 +12,6 @@ code-tools: false
 # title-block-banner: false
 ---
 
+Here's where I'll be posting random things, mostly snippets of R code for learning and future reference.
+
 ## Posts

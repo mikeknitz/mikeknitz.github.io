@@ -1,0 +1,142 @@
+---
+title: "Quarto snippets"
+author: "Michael Knitz"
+date: "2023-11-28"
+categories: [quarto]
+---
+
+```{r, include = FALSE}
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+## Single Quarto document template
+
+### Frontmatter
+
+``` yaml
+title: "Title"
+subtitle: "Subtitle"
+author: "Author"
+date: "2023-11-28"
+format:
+    html:
+        css: assets/custom.scss
+        code-overflow: scroll
+        code-tools: true
+        embed-resources: true
+        highlight-style: github
+        standalone: true
+        theme:
+            light: lumen
+        toc: true
+        toc-expand: true
+        toc-depth: 4
+        toc-location: left
+        toc-collapsed: false
+        grid:
+            sidebar-width: 500px
+            body-width: 1000px
+            margin-width: 500px
+            gutter-width: 1.5rem
+```
+
+
+### CSS
+
+``` scss
+/*-- scss:rules --*/
+// size of code font
+pre>code.sourceCode {
+    font-size: 1em;
+}
+```
+
+### Knitr chunk defaults
+
+Set as the first executable chunk of the document
+
+``` r
+#| include: false
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+### Libraries
+
+Load libraries, load functions in their own environment, set a path for any output, set any constants for the analysis
+
+``` r
+#| code-fold: true
+#| message: false
+
+library(conflicted)
+library(dplyr)
+library(tibble)
+library(stringr)
+library(forcats)
+library(readr)
+library(tidyr)
+library(readxl)
+library(writexl)
+library(purrr)
+library(ggplot2)
+library(ggnewscale)
+library(ggpubr)
+library(ggsignif)
+library(RColorBrewer)
+library(cowplot)
+loadNamespace("fs")
+library(Seurat)
+library(lisi)
+library(harmony)
+library(clustree)
+
+# ------------------------------------------------------------------------------
+
+# Source functions, helpers
+mk <- new.env()
+source_files <- list.files("R", recursive = TRUE, full.names = TRUE)
+invisible(lapply(as.list(source_files), \(x) sys.source(x, envir = mk)))
+
+# Set path for this notebook
+path_output <- fs::dir_create("output/02")
+
+LOAD_FROM_CACHED <- TRUE
+```
+
+### Session Info
+
+``` html
+<details style="margin-bottom:10px;">
+<summary style="color:black;">
+Session info
+</summary>
+```
+
+``` r
+#| echo: false
+print(sessioninfo::session_info())
+```
+
+
+``` html
+</details>
+```
+
+---------------------
+
+<details style="margin-bottom:10px;">
+<summary style="color:black;">
+Session info
+</summary>
+
+```{r, echo = FALSE}
+print(sessioninfo::session_info())
+```
+
+</details>

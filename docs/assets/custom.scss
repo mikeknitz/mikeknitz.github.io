@@ -1,0 +1,17 @@
+/*-- scss:rules --*/
+
+// size of code font
+pre>code.sourceCode {
+    font-size: 1em;
+}
+
+/* Give a hanging indent to sidebar items */
+.sidebar-item-text {
+    padding-left: 20px;
+    text-indent: -20px;
+}
+
+/* Bold folder names */
+a.sidebar-item-text.sidebar-link.text-start > span {
+    font-weight: bold
+}
