@@ -2,7 +2,7 @@
 title: "R data structures"
 author: "Michael Knitz"
 date: "2023-11-28"
-categories: [quarto]
+categories: [r]
 ---
 
 ```{r, include = FALSE}

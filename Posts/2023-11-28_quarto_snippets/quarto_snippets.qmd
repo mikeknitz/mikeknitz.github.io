@@ -2,7 +2,7 @@
 title: "Quarto snippets"
 author: "Michael Knitz"
 date: "2023-11-28"
-categories: [quarto]
+categories: [r, quarto]
 ---
 
 ```{r, include = FALSE}

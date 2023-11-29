@@ -1,0 +1,72 @@
+---
+title: "gene_to_name.R"
+author: "Michael Knitz"
+date: "2023-11-28"
+categories: [r, handy functions]
+---
+
+```{r, include = FALSE}
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+A simple function that takes a single gene symbol and provides a single gene description, using the `AnnotationDbi` package.
+
+```{r}
+# Provide a single gene symbol and get a single gene name / description
+# Works for organism = "human" or "mouse"
+
+# Return an error if not 1:1 mapping from AnnotationDbi::select()
+# Return NA if no mapping found
+
+# TODO: vectorize this function and reduce calls to AnnotationDbi::select()
+
+gene_to_name <- function(symbol, organism = "human") {
+
+    stopifnot(length(symbol) == 1)
+
+    # Choose database based on human or mouse ----------------------------------
+    if (organism == "human") {
+        stopifnot(requireNamespace("org.Hs.eg.db"))
+        x <- org.Hs.eg.db::org.Hs.eg.db
+    } else if (organism == "mouse") {
+        stopifnot(requireNamespace("org.Mm.eg.db"))
+        x <- org.Mm.eg.db::org.Mm.eg.db
+    }
+
+    # Call AnnotationDbi::select() ---------------------------------------------
+    anno <- suppressMessages(try(
+        AnnotationDbi::select(
+            x = x, keys = symbol,
+            column = "GENENAME", keytype = "SYMBOL"
+        ),
+        silent = TRUE
+    ))
+
+    # Return NA if not found ---------------------------------------------------
+    if (any(class(anno) == "try-error")) return(NA) # seems fragile but it works
+
+    # Return gene name / description -------------------------------------------
+    # Throws error if not 1:1 mapping
+
+    if (length(anno$GENENAME) == 1) {
+        return(anno$GENENAME)
+    } else if (length(anno$GENENAME) > 1) {
+        stop(paste("Mapping for", symbol, "not 1:1"))
+    }
+
+}
+```
+
+```{r}
+gene_to_name("CD8A")
+```
+
+```{r}
+c("CD3D", "IL6", "TNFRSF8", "CD45", "PTPRC") |>
+    lapply(\(x) gene_to_name(x)) |>
+    unlist() |>
+    cat(sep = "\n")
+```

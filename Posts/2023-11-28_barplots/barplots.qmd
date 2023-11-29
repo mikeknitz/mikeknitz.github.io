@@ -3,7 +3,7 @@ title: "Barplots"
 author: "Michael Knitz"
 date: "2023-11-28"
 date-modified: "2023-11-28"
-categories: [ggplot]
+categories: [r, ggplot]
 # image: "image.jpg" # thumbnail for post, relative to this file
 ---
 
