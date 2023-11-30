@@ -11,7 +11,7 @@ website:
     location: sidebar
     type: overlay
     limit: 50
-  reader-mode: true
+  reader-mode: false
   sidebar:
     title: Michael Knitz
     style: "floating"
