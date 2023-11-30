@@ -24,6 +24,9 @@ website:
           - "Posts/2023-11-28_quarto_snippets/quarto_snippets.qmd"
           - "Posts/2023-11-28_R_data_structures/R_data_structures.qmd"
           - "Posts/2023-11-29_functions_in_environment/functions_in_environment.qmd"
+      - section: "Misc"
+        contents:
+          - "Posts/2023-11-30_repos_with_large_files/repos_with_large_files.qmd"
 
 format:
   html:

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.489">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -82,9 +82,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "panel-placement": "start",
   "type": "overlay",
   "limit": 50,
-  "keyboard-shortcut": [
-    null
-  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -109,12 +106,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Posts/2023-11-28_barplots/barplots.html">R</a></li><li class="breadcrumb-item"><a href="../../Posts/2023-11-28_quarto_snippets/quarto_snippets.html">Quarto snippets</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Posts/2023-11-28_barplots/barplots.html">R</a></li><li class="breadcrumb-item"><a href="../../Posts/2023-11-28_quarto_snippets/quarto_snippets.html">Quarto snippets</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -124,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../../">Michael Knitz</a> 
@@ -176,10 +173,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Misc</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Posts/2023-11-30_repos_with_large_files/repos_with_large_files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Repos with large files</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
@@ -203,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Posts/2023-11-28_barplots/barplots.html">R</a></li><li class="breadcrumb-item"><a href="../../Posts/2023-11-28_quarto_snippets/quarto_snippets.html">Quarto snippets</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Quarto snippets</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
   <div class="quarto-categories">
@@ -240,9 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-
 </header>
-
 
 <p>I’m usually re-using the same old Quarto templates. These are syntax and patterns I like to reference.</p>
 <section id="single-quarto-document-template" class="level2">
@@ -410,15 +422,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="session-info">Session Info</h2>
 <p>Here’s how to display a collapsible section for the R session info:</p>
 <p>html:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom:10px;"</span><span class="dt">&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:black;"</span><span class="dt">&gt;</span></span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;details</span> <span class="er">style</span><span class="ot">=</span><span class="st">"margin-bottom:10px;"</span><span class="kw">&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;summary</span> <span class="er">style</span><span class="ot">=</span><span class="st">"color:black;"</span><span class="kw">&gt;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Session info</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/summary&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>R chunk:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sessioninfo<span class="sc">::</span><span class="fu">session_info</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>html:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/details&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 <details style="margin-bottom:10px;">
 <summary style="color:black;">
@@ -429,15 +441,15 @@ Session info
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
  version  R version 4.2.3 (2023-03-15)
- os       macOS 14.1
- system   aarch64, darwin20
+ os       macOS Big Sur ... 10.16
+ system   x86_64, darwin17.0
  ui       X11
  language (EN)
  collate  en_US.UTF-8
  ctype    en_US.UTF-8
  tz       America/Denver
- date     2023-11-29
- pandoc   3.1.8 @ /opt/homebrew/bin/ (via rmarkdown)
+ date     2023-11-30
+ pandoc   3.1.1 @ /Users/knitzm/miniconda3/bin/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
  package     * version date (UTC) lib source
@@ -446,7 +458,7 @@ Session info
  digest        0.6.33  2023-07-07 [1] CRAN (R 4.2.0)
  dplyr         1.1.3   2023-09-03 [1] CRAN (R 4.2.0)
  evaluate      0.22    2023-09-29 [1] CRAN (R 4.2.3)
- fansi         1.0.5   2023-10-08 [1] CRAN (R 4.2.0)
+ fansi         1.0.5   2023-10-08 [1] CRAN (R 4.2.3)
  farver        2.1.1   2022-07-06 [1] CRAN (R 4.2.0)
  fastmap       1.1.1   2023-02-24 [1] CRAN (R 4.2.0)
  fs            1.6.3   2023-07-20 [1] CRAN (R 4.2.0)
@@ -454,10 +466,10 @@ Session info
  ggplot2     * 3.4.4   2023-10-12 [1] CRAN (R 4.2.0)
  glue          1.6.2   2022-02-24 [1] CRAN (R 4.2.0)
  gtable        0.3.4   2023-08-21 [1] CRAN (R 4.2.0)
- htmltools     0.5.6.1 2023-10-06 [1] CRAN (R 4.2.0)
+ htmltools     0.5.6.1 2023-10-06 [1] CRAN (R 4.2.3)
  htmlwidgets   1.6.2   2023-03-17 [1] CRAN (R 4.2.0)
  jsonlite      1.8.7   2023-06-29 [1] CRAN (R 4.2.0)
- knitr         1.44    2023-09-11 [1] CRAN (R 4.2.0)
+ knitr         1.44    2023-09-11 [1] CRAN (R 4.2.3)
  labeling      0.4.3   2023-08-29 [1] CRAN (R 4.2.0)
  lifecycle     1.0.3   2022-10-07 [1] CRAN (R 4.2.0)
  magrittr      2.0.3   2022-03-30 [1] CRAN (R 4.2.0)
@@ -466,23 +478,23 @@ Session info
  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.2.0)
  purrr         1.0.2   2023-08-10 [1] CRAN (R 4.2.0)
  R6            2.5.1   2021-08-19 [1] CRAN (R 4.2.0)
- ragg          1.2.6   2023-10-10 [1] CRAN (R 4.2.0)
+ ragg          1.2.6   2023-10-10 [1] CRAN (R 4.2.3)
  rlang         1.1.1   2023-04-28 [1] CRAN (R 4.2.0)
  rmarkdown     2.25    2023-09-18 [1] CRAN (R 4.2.0)
  rstudioapi    0.15.0  2023-07-07 [1] CRAN (R 4.2.0)
  scales        1.2.1   2022-08-20 [1] CRAN (R 4.2.0)
  sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.2.0)
- systemfonts   1.0.5   2023-10-09 [1] CRAN (R 4.2.0)
- textshaping   0.3.7   2023-10-09 [1] CRAN (R 4.2.0)
+ systemfonts   1.0.5   2023-10-09 [1] CRAN (R 4.2.3)
+ textshaping   0.3.7   2023-10-09 [1] CRAN (R 4.2.3)
  tibble        3.2.1   2023-03-20 [1] CRAN (R 4.2.0)
  tidyselect    1.2.0   2022-10-10 [1] CRAN (R 4.2.0)
- utf8          1.2.4   2023-10-22 [1] CRAN (R 4.2.0)
+ utf8          1.2.4   2023-10-22 [1] CRAN (R 4.2.3)
  vctrs         0.6.4   2023-10-12 [1] CRAN (R 4.2.0)
- withr         2.5.1   2023-09-26 [1] CRAN (R 4.2.0)
+ withr         2.5.1   2023-09-26 [1] CRAN (R 4.2.3)
  xfun          0.40    2023-08-09 [1] CRAN (R 4.2.0)
  yaml          2.3.7   2023-01-23 [1] CRAN (R 4.2.0)
 
- [1] /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library
+ [1] /Library/Frameworks/R.framework/Versions/4.2/Resources/library
 
 ──────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
@@ -625,9 +637,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -637,17 +650,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -660,128 +664,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
-        }
-        typesetMath(container);
-        return container.innerHTML
-      } else {
-        typesetMath(note);
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      typesetMath(note);
-      return note.innerHTML;
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -825,7 +707,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -851,32 +732,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -945,10 +800,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include = FALSE}</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="in">loadNamespace("knitr")</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="in">    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="in">    warning = FALSE)</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">loadNamespace</span>(<span class="st">"knitr"</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">comment =</span> <span class="st">""</span>, <span class="at">fig.align =</span> <span class="st">"center"</span>, <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">out.width =</span> <span class="st">"80%"</span>, <span class="at">dpi =</span> <span class="dv">150</span>, <span class="at">results =</span> <span class="st">"hold"</span>, <span class="at">fig.show =</span> <span class="st">"hold"</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">warning =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>I'm usually re-using the same old Quarto templates. These are syntax and patterns I like to reference.</span>
@@ -1084,16 +939,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a><span class="in"># Chunk options</span></span>
-<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="in"># ```{r, echo = FALSE, fig.align = "default", results = "asis"}</span></span>
-<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a><span class="in"># Sometimes I've run into issues with fig.align = "center", which</span></span>
-<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a><span class="in">    # I keep as a default, so I unset it just for this chunk</span></span>
+<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a><span class="co"># Chunk options</span></span>
+<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="co"># ```{r, echo = FALSE, fig.align = "default", results = "asis"}</span></span>
+<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a><span class="co"># Sometimes I've run into issues with fig.align = "center", which</span></span>
+<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a>    <span class="co"># I keep as a default, so I unset it just for this chunk</span></span>
 <span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a><span class="in">purrr::walk(plots, \(plot) {</span></span>
-<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a><span class="in">    cat("##### ", plot, "\n\n") # Set heading level one below parent</span></span>
-<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a><span class="in">    cat("![](", fs::path(path_dir, paste0(plot, ".png")), ")\n")</span></span>
-<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a><span class="in">    cat("\n\n")</span></span>
-<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a><span class="in">})</span></span>
+<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">walk</span>(plots, \(plot) {</span>
+<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"##### "</span>, plot, <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>) <span class="co"># Set heading level one below parent</span></span>
+<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"![]("</span>, fs<span class="sc">::</span><span class="fu">path</span>(path_dir, <span class="fu">paste0</span>(plot, <span class="st">".png"</span>)), <span class="st">")</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a>The images will take up the width of the body of the document. With markdown syntax, you can change the width of the images with something like <span class="in">`{width="600px"}`</span></span>
@@ -1101,16 +956,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset group="XXX"}</span>
 <span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE, fig.align = "default", results = "asis"}</span></span>
-<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a><span class="in"># Chunk options</span></span>
-<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a><span class="in"># ```{r, echo = FALSE, fig.align = "default", results = "asis"}</span></span>
-<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a><span class="in"># Sometimes I've run into issues with fig.align = "center", which</span></span>
-<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a><span class="in">    # I keep as a default, so I unset it just for this chunk</span></span>
+<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a><span class="co"># Chunk options</span></span>
+<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a><span class="co"># ```{r, echo = FALSE, fig.align = "default", results = "asis"}</span></span>
+<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a><span class="co"># Sometimes I've run into issues with fig.align = "center", which</span></span>
+<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a>    <span class="co"># I keep as a default, so I unset it just for this chunk</span></span>
 <span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a><span class="in">purrr::walk(plots, \(plot) {</span></span>
-<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a><span class="in">    cat("##### ", plot, "\n\n") # Set heading level one below parent</span></span>
-<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a><span class="in">    cat("![](", fs::path(path_dir, paste0(plot, ".png")), ")\n")</span></span>
-<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a><span class="in">    cat("\n\n")</span></span>
-<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a><span class="in">})</span></span>
+<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">walk</span>(plots, \(plot) {</span>
+<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"##### "</span>, plot, <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>) <span class="co"># Set heading level one below parent</span></span>
+<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"![]("</span>, fs<span class="sc">::</span><span class="fu">path</span>(path_dir, <span class="fu">paste0</span>(plot, <span class="st">".png"</span>)), <span class="st">")</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a>:::</span>
@@ -1153,10 +1008,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a>html:</span>
 <span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a><span class="in">``` html</span></span>
-<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="ot"> style</span><span class="op">=</span><span class="st">"margin-bottom:10px;"</span><span class="dt">&gt;</span></span>
-<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:black;"</span><span class="dt">&gt;</span></span>
+<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>details style<span class="op">=</span><span class="st">"margin-bottom:10px;"</span><span class="op">&gt;</span></span>
+<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>summary style<span class="op">=</span><span class="st">"color:black;"</span><span class="op">&gt;</span></span>
 <span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a>Session info</span>
-<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>summary<span class="op">&gt;</span></span>
 <span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a>R chunk:</span>
@@ -1169,25 +1024,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a>html:</span>
 <span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a><span class="in">``` html</span></span>
-<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>details<span class="op">&gt;</span></span>
 <span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-238"><a href="#cb15-238" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-239"><a href="#cb15-239" aria-hidden="true" tabindex="-1"></a>---------------------</span>
 <span id="cb15-240"><a href="#cb15-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a>&lt;details style="margin-bottom:10px;"&gt;</span>
-<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a>&lt;summary style="color:black;"&gt;</span>
+<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;details</span> <span class="er">style</span><span class="ot">=</span><span class="st">"margin-bottom:10px;"</span><span class="kw">&gt;</span></span>
+<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;summary</span> <span class="er">style</span><span class="ot">=</span><span class="st">"color:black;"</span><span class="kw">&gt;</span></span>
 <span id="cb15-243"><a href="#cb15-243" aria-hidden="true" tabindex="-1"></a>Session info</span>
-<span id="cb15-244"><a href="#cb15-244" aria-hidden="true" tabindex="-1"></a>&lt;/summary&gt;</span>
+<span id="cb15-244"><a href="#cb15-244" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/summary&gt;</span></span>
 <span id="cb15-245"><a href="#cb15-245" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-246"><a href="#cb15-246" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
-<span id="cb15-247"><a href="#cb15-247" aria-hidden="true" tabindex="-1"></a><span class="in">print(sessioninfo::session_info())</span></span>
+<span id="cb15-247"><a href="#cb15-247" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sessioninfo<span class="sc">::</span><span class="fu">session_info</span>())</span>
 <span id="cb15-248"><a href="#cb15-248" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-249"><a href="#cb15-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-250"><a href="#cb15-250" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb15-250"><a href="#cb15-250" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/details&gt;</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-
 
 
 

@@ -1,0 +1,62 @@
+---
+title: "Repos with large files"
+author: "Michael Knitz"
+date: "2023-11-30"
+categories: [git, workflow]
+---
+
+```{r, include = FALSE}
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+Large files can make git projects a pain. Documenting my evolving workflow here.
+
+For easy projects with small files and non-sensitive data, things can be as easy as as setting up a repo, running `git clone`, and adding just a couple lines to `.gitignore`. When I want to use a different machine, cloning there is easy.
+
+With large files, using something like [Managing large files - GitHub Docs](https://docs.github.com/en/repositories/working-with-files/managing-large-files) is an option, but I prefer to sync these files with OneDrive or iCloud or Dropbox. This also makes it easy to work with associated binary files like Powerpoints and Excel documents.
+
+There is the option of literally syncing the entire repo, including the `.git` folder, but with thousands of files related to tracking, I've run into sync errors and endless sync times trying to do this. It's not a great option.
+
+What I've settled with is keeping the local copy of the repo outside of OneDrive, and keeping any large or binary files inside OneDrive, which I symlink to. Then I use a tracked script `setup.sh`. Something like below. It adds a number of directories to `.gitignore` where I store large and/or binary files. The names of these directories make it easy to remember that they are untracked. They also show up visually distinct in the file explorer in VSCode so I can remember. Everything else can be tracked in git without a care.
+
+When setting up on a different machine, I also get the benefit of documenting which untracked files are necessary to run the code.
+
+``` sh
+#!/bin/bash
+
+# Initial setup ----------------------------------------------------------------
+
+# Create .gitignore
+if [ ! -f .gitignore ]; then
+  touch .gitignore
+fi
+
+# Add misc to .gitignore
+echo -e ".DS_Store" >> .gitignore
+echo -e "/.quarto/" >> .gitignore
+echo -e ".quarto/" >> .gitignore
+
+# Add untracked directories to .gitignore
+echo -e "_main/" >> .gitignore
+echo -e "assets/" >> .gitignore
+echo -e "cache/" >> .gitignore
+echo -e "data/" >> .gitignore
+echo -e "output/" >> .gitignore
+echo -e "reports/" >> .gitignore
+
+# Symlink untracked directories ------------------------------------------------
+
+# For machine A, relative to home directory ~
+base_path="path_to_synced_directory"
+
+# Run ln
+ln -s ~/"${base_path}"/_main .
+ln -s ~/"${base_path}"/assets .
+ln -s ~/"${base_path}"/cache .
+ln -s ~/"${base_path}"/data .
+ln -s ~/"${base_path}"/output .
+ln -s ~/"${base_path}"/reports .
+```
