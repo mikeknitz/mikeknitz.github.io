@@ -13,7 +13,7 @@ website:
     limit: 50
   reader-mode: true
   sidebar:
-    title: <a href='/index.html'>Michael Knitz</a>
+    title: Michael Knitz
     style: "floating"
     collapse-level: 4
     contents:
