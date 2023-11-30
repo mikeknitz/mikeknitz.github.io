@@ -34,18 +34,24 @@ if [ ! -f .gitignore ]; then
   touch .gitignore
 fi
 
-# Add misc to .gitignore
-echo -e ".DS_Store" >> .gitignore
-echo -e "/.quarto/" >> .gitignore
-echo -e ".quarto/" >> .gitignore
+echo -e "
+.DS_Store
+/.quarto/
+.quarto/
+" >> .gitignore
 
-# Add untracked directories to .gitignore
-echo -e "_main/" >> .gitignore
-echo -e "assets/" >> .gitignore
-echo -e "cache/" >> .gitignore
-echo -e "data/" >> .gitignore
-echo -e "output/" >> .gitignore
-echo -e "reports/" >> .gitignore
+# Add untracked symlink directories to .gitignore
+# No trailing slash since these are files
+# Set git config core.symlinks false
+# Check git config --list
+echo -e "
+_main
+assets
+cache
+data
+output
+reports
+" >> .gitignore
 
 # Symlink untracked directories ------------------------------------------------
 
