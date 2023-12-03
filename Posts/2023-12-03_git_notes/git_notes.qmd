@@ -1,0 +1,197 @@
+---
+title: "Git Notes"
+author: "Michael Knitz"
+date: "2023-12-03"
+categories: [git, workflow]
+---
+
+```{r, include = FALSE}
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+<br>
+
+::::: {.columns}
+
+:::: {.column}
+Notes from the *Pro Git* book found here: [Git - Book](https://git-scm.com/book/en/v2){target="_blank"}
+::::
+
+:::: {.column}
+::: {.center}
+![](../../assets/20231203120751.png){width="200px"}
+:::
+::::
+
+:::::
+
+## Git config
+
+1. `[path]/etc/gitconfig`
+    - System-wide git config
+    - Use `git config --system`
+2. `~/.gitconfig` or `~/.config/git/config`
+    - User git config
+    - Use `git config --global`
+3. `.git/config`
+    - Config just for the repo
+    - Use `git config` or `git config --local`
+
+Local options override global options override system options
+
+List all your options with `git config --list --show-origin`. This also conveniently shows the files where the options are stored.
+
+### Set one-time options
+
+Identity options
+
+``` bash
+git config --global user.name <e.g., Github username>
+git config --global user.email <e.g., Github email>
+```
+
+Default editor
+
+``` bash
+git config --global core.editor nvim
+```
+
+Default branch name
+
+``` bash
+git config --global init.defaultBranch main
+```
+
+### Help pages
+
+``` bash
+git help <verb>
+git <verb> --help
+man git-<verb>
+```
+
+## Creating a new repo
+
+### Turn a local directory into a repo
+
+Init
+
+``` bash
+cd <directory>
+git init
+```
+
+Add some files (i.e., *stage* some files for committing)
+
+``` bash
+git add -A    # add all files
+git add .     # add all files (if you're at root)
+git add *.qmd # add with a glob
+```
+
+Make an initial commit
+
+``` bash
+git commit -m "initial commmit"
+```
+
+### Clone an existing repo
+
+``` bash
+# Clone into the current directory
+git clone <url/path>
+
+# Clone into the current directory with specific name
+git clone <url/path> <name_of_dir>
+```
+
+## Commands
+
+|                                              |                                           |
+| -------------------------------------------- | ----------------------------------------- |
+| `git help`                                   | Help for a command                        |
+| `git status`                                 | Check status of repo                      |
+| `git status -s`<br>`git status --short`      | Check status (short)                      |
+| `git add`                                    | Add files to staging                      |
+| `git diff`                                   | Show changes in unstaged                  |
+| `git diff -staged`<br>`git diff -cached`     | Show changes in staged                    |
+| `git difftool`<br>`git difftool --tool-help` | Use software to show diffs                |
+| `git log`                                    | Show commit history                       |
+| `git log --pretty=online`                    | Compact commit history with just messages |
+| `git log --pretty=online --graph`            | Also shows branch and merge history       |
+| `git log --since=2.weeks`                    | Show log only in last two weeks           |
+
+<br>
+
+|                                                 |                                                                                                                                            |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `git commit`                                    | Commit staged and open editor for commit message                                                                                           |
+| `git commit -m <message>`                       | Commit staged and add message inline                                                                                                       |
+| `git commit -v`                                 | Add diff into the commit message editor                                                                                                    |
+| `git commit -a` <div style="width:300px"></div> | Automatically stage all files that were already tracked before committing (I assume this won't stage files that were previously untracked) |
+
+### git add
+
+- When you `git add <file.ext>`, THAT version will be added for staging, but further modifications will not be staged. Run `git add` again to stage any subsequent modifications to the file.
+
+## .gitignore
+
+Use file `.gitignore`
+
+- Blank lines or lines starting with `#` are ignored
+- Prepending lines with `/` avoids recursion
+- Appending lines with `/` indicates directories
+
+|                          |                                                                                |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| `*.[oa]`                 | Ignore files ending in `.o` or `.a`                                            |
+| `*~`                     | Ignore files ending in `~` (many temporary files)                              |
+| `!*.txt`                 | Ignore files NOT ending with `.txt`                                            |
+| `temp*`<br>`!temp1.text` | Do not track files starting with `temp`<br>But do specifically track this file |
+| `/TODO.txt`              | Ignore `TODO.txt` in current directory, but not `subdir/TODO.txt`              |
+| `lib/`                   | Ignore ANY directories named `lib`                                             |
+| `assets/**/*.png`        | Ignore `.png` files in `assets` or any of its subdirectories                   |
+
+- `.gitignore` examples: [GitHub - github/gitignore: A collection of useful .gitignore templates](https://github.com/github/gitignore){target="_blank"}
+- Multiple `.gitignore` files are possible, see `man gitignore`
+
+## Removing files (git rm)
+
+1. **Option 1:** Using `git rm <file>` will remove the file and also add it to the "Changes to be committed" (i.e., the removal added to the staging area)
+2. **Option 2:** If you remove a tracked file manually, it will show as as "Changes not staged for commit". Deleting in VSCode will allow you to stage this deletion in the GUI if you didn't use `git rm` when deleting.
+   
+If a file has been modified or added to the stage area, use `git rm -f` to force the deletion. (Safety feature to avoid deleting a modified/staged file).
+
+### Unstage a file (git rm --cached)
+
+`git rm --cached <file>` = KEEP the file, but remove it from staging area (e.g., forgot to add it to `.gitignore` but you staged it)
+
+### Rename a file
+
+Option 1
+
+``` bash
+git mv file_old file_new
+```
+
+Option 2
+
+``` bash
+mv file_old file_new
+git rm file_old
+git add file_new
+```
+
+Git will implicitly detect the rename anyway.
+
+::: {.callout-note}
+A rename only seems to show a rename in `git status`.
+
+A rename *and* a modification seems to show a deleted file and then a new file? Not sure how this affects the history or what can be gleamed. E.g. in VSCode GUI will it show the rename and previous history of a file? Seems like it might be safer to not commit a rename and a modification in the same commit for important files
+:::
+
+
+
