@@ -3,6 +3,9 @@ title: "Git Notes"
 author: "Michael Knitz"
 date: "2023-12-03"
 categories: [git, workflow]
+format:
+  html:
+    toc-depth: 3
 ---
 
 ```{r, include = FALSE}
@@ -120,8 +123,8 @@ git clone <url/path> <name_of_dir>
 | `git diff -staged`<br>`git diff -cached`     | Show changes in staged                    |
 | `git difftool`<br>`git difftool --tool-help` | Use software to show diffs                |
 | `git log`                                    | Show commit history                       |
-| `git log --pretty=online`                    | Compact commit history with just messages |
-| `git log --pretty=online --graph`            | Also shows branch and merge history       |
+| `git log --pretty=oneline`                    | Compact commit history with just messages |
+| `git log --pretty=oneline --graph`            | Also shows branch and merge history       |
 | `git log --since=2.weeks`                    | Show log only in last two weeks           |
 
 <br>
@@ -133,7 +136,7 @@ git clone <url/path> <name_of_dir>
 | `git commit -v`                                 | Add diff into the commit message editor                                                                                                    |
 | `git commit -a` <div style="width:300px"></div> | Automatically stage all files that were already tracked before committing (I assume this won't stage files that were previously untracked) |
 
-### git add
+## git add
 
 - When you `git add <file.ext>`, THAT version will be added for staging, but further modifications will not be staged. Run `git add` again to stage any subsequent modifications to the file.
 
@@ -193,5 +196,81 @@ A rename only seems to show a rename in `git status`.
 A rename *and* a modification seems to show a deleted file and then a new file? Not sure how this affects the history or what can be gleamed. E.g. in VSCode GUI will it show the rename and previous history of a file? Seems like it might be safer to not commit a rename and a modification in the same commit for important files
 :::
 
+## Undoing
 
+### Undo commit (git commit --amend)
+
+Use when you've already made a commit and want to make a change (e.g., change the commit message, add a file you forgot, etc.). This will entirely change the commit.
+
+E.g.,
+
+``` bash
+git commit -m "message"
+git add <new_file>
+
+# One of:
+git commit --amend # I think it keeps old commit message?
+git commit --amend -m "message_new"
+```
+
+### Unstage a file (git reset)
+
+``` bash
+# Both in staging area
+git add file1
+git add file2
+
+# Unstage file2
+git reset HEAD file2
+```
+
+Unstage all staged files (keeps any modifications in the working directory). This is a "mixed reset".
+
+``` bash
+# equivalent
+git reset HEAD
+git reset
+```
+
+### git reset
+
+(Section to be updated in later chapters)
+
+To see where HEAD is pointing, use `git log`, e.g,
+
+``` bash
+git log
+git log -n 1
+git log --pretty=oneline --graph
+```
+
+#### Commands
+
+|                                 |                                                                                           |
+| ------------------------------- | ----------------------------------------------------------------------------------------- |
+| `git reset`<br>`git reset HEAD` | Unstage staged file for the commit at HEAD, keep any changes in the working directory     |
+| `git reset --soft <commit>`     | Reset the HEAD to a specific commit, but leave any changes in working directory           |
+| `git reset <commit>`            | Reset HEAD to specific commit, leave any changes in working directory, unstage changes    |
+| `git reset --hard <commit>`     | Reset HEAD to specific commit, unstage changes, discards all changes in working directory |
+
+### Unmodify a file (git checkout --)
+
+For untracked but modified files, discard changes (irreversibly) with:
+
+``` bash
+git checkout -- <file>
+```
+
+### Undoing with git restore (easier)
+
+`git restore` introduced with git v.2.23.0
+
+|                                                  |                                                         |
+| ------------------------------------------------ | ------------------------------------------------------- |
+| `git restore --staged <file>`                    | Unstage a file                                          |
+| `git restore --staged .`                         | Unstage all files under current working directory       |
+| `git restore <file>`                             | Discard changes to a modified file (irreversibly)       |
+| `git restore .`  <div style="width:275px"></div> | Discard changes to all modified files(?) (irreversibly) |
+
+## Remotes
 

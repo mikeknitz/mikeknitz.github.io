@@ -208,7 +208,14 @@
     "href": "Posts/2023-12-03_git_notes/git_notes.html#commands",
     "title": "Git Notes",
     "section": "Commands",
-    "text": "Commands\n\n\n\n\n\n\n\ngit help\nHelp for a command\n\n\ngit status\nCheck status of repo\n\n\ngit status -sgit status --short\nCheck status (short)\n\n\ngit add\nAdd files to staging\n\n\ngit diff\nShow changes in unstaged\n\n\ngit diff -stagedgit diff -cached\nShow changes in staged\n\n\ngit difftoolgit difftool --tool-help\nUse software to show diffs\n\n\ngit log\nShow commit history\n\n\ngit log --pretty=online\nCompact commit history with just messages\n\n\ngit log --pretty=online --graph\nAlso shows branch and merge history\n\n\ngit log --since=2.weeks\nShow log only in last two weeks\n\n\n\n\n\n\n\n\n\n\n\ngit commit\nCommit staged and open editor for commit message\n\n\ngit commit -m &lt;message&gt;\nCommit staged and add message inline\n\n\ngit commit -v\nAdd diff into the commit message editor\n\n\ngit commit -a \nAutomatically stage all files that were already tracked before committing (I assume this won’t stage files that were previously untracked)\n\n\n\n\ngit add\n\nWhen you git add &lt;file.ext&gt;, THAT version will be added for staging, but further modifications will not be staged. Run git add again to stage any subsequent modifications to the file."
+    "text": "Commands\n\n\n\n\n\n\n\ngit help\nHelp for a command\n\n\ngit status\nCheck status of repo\n\n\ngit status -sgit status --short\nCheck status (short)\n\n\ngit add\nAdd files to staging\n\n\ngit diff\nShow changes in unstaged\n\n\ngit diff -stagedgit diff -cached\nShow changes in staged\n\n\ngit difftoolgit difftool --tool-help\nUse software to show diffs\n\n\ngit log\nShow commit history\n\n\ngit log --pretty=oneline\nCompact commit history with just messages\n\n\ngit log --pretty=oneline --graph\nAlso shows branch and merge history\n\n\ngit log --since=2.weeks\nShow log only in last two weeks\n\n\n\n\n\n\n\n\n\n\n\ngit commit\nCommit staged and open editor for commit message\n\n\ngit commit -m &lt;message&gt;\nCommit staged and add message inline\n\n\ngit commit -v\nAdd diff into the commit message editor\n\n\ngit commit -a \nAutomatically stage all files that were already tracked before committing (I assume this won’t stage files that were previously untracked)"
+  },
+  {
+    "objectID": "Posts/2023-12-03_git_notes/git_notes.html#git-add",
+    "href": "Posts/2023-12-03_git_notes/git_notes.html#git-add",
+    "title": "Git Notes",
+    "section": "git add",
+    "text": "git add\n\nWhen you git add &lt;file.ext&gt;, THAT version will be added for staging, but further modifications will not be staged. Run git add again to stage any subsequent modifications to the file."
   },
   {
     "objectID": "Posts/2023-12-03_git_notes/git_notes.html#gitignore",
@@ -223,6 +230,20 @@
     "title": "Git Notes",
     "section": "Removing files (git rm)",
     "text": "Removing files (git rm)\n\nOption 1: Using git rm &lt;file&gt; will remove the file and also add it to the “Changes to be committed” (i.e., the removal added to the staging area)\nOption 2: If you remove a tracked file manually, it will show as as “Changes not staged for commit”. Deleting in VSCode will allow you to stage this deletion in the GUI if you didn’t use git rm when deleting.\n\nIf a file has been modified or added to the stage area, use git rm -f to force the deletion. (Safety feature to avoid deleting a modified/staged file).\n\nUnstage a file (git rm –cached)\ngit rm --cached &lt;file&gt; = KEEP the file, but remove it from staging area (e.g., forgot to add it to .gitignore but you staged it)\n\n\nRename a file\nOption 1\ngit mv file_old file_new\nOption 2\nmv file_old file_new\ngit rm file_old\ngit add file_new\nGit will implicitly detect the rename anyway.\n\n\n\n\n\n\nNote\n\n\n\nA rename only seems to show a rename in git status.\nA rename and a modification seems to show a deleted file and then a new file? Not sure how this affects the history or what can be gleamed. E.g. in VSCode GUI will it show the rename and previous history of a file? Seems like it might be safer to not commit a rename and a modification in the same commit for important files"
+  },
+  {
+    "objectID": "Posts/2023-12-03_git_notes/git_notes.html#undoing",
+    "href": "Posts/2023-12-03_git_notes/git_notes.html#undoing",
+    "title": "Git Notes",
+    "section": "Undoing",
+    "text": "Undoing\n\nUndo commit (git commit –amend)\nUse when you’ve already made a commit and want to make a change (e.g., change the commit message, add a file you forgot, etc.). This will entirely change the commit.\nE.g.,\ngit commit -m \"message\"\ngit add &lt;new_file&gt;\n\n# One of:\ngit commit --amend # I think it keeps old commit message?\ngit commit --amend -m \"message_new\"\n\n\nUnstage a file (git reset)\n# Both in staging area\ngit add file1\ngit add file2\n\n# Unstage file2\ngit reset HEAD file2\nUnstage all staged files (keeps any modifications in the working directory). This is a “mixed reset”.\n# equivalent\ngit reset HEAD\ngit reset\n\n\ngit reset\n(Section to be updated in later chapters)\nTo see where HEAD is pointing, use git log, e.g,\ngit log\ngit log -n 1\ngit log --pretty=oneline --graph\n\nCommands\n\n\n\n\n\n\n\ngit resetgit reset HEAD\nUnstage staged file for the commit at HEAD, keep any changes in the working directory\n\n\ngit reset --soft &lt;commit&gt;\nReset the HEAD to a specific commit, but leave any changes in working directory\n\n\ngit reset &lt;commit&gt;\nReset HEAD to specific commit, leave any changes in working directory, unstage changes\n\n\ngit reset --hard &lt;commit&gt;\nReset HEAD to specific commit, unstage changes, discards all changes in working directory\n\n\n\n\n\n\nUnmodify a file (git checkout –)\nFor untracked but modified files, discard changes (irreversibly) with:\ngit checkout -- &lt;file&gt;\n\n\nUndoing with git restore (easier)\ngit restore introduced with git v.2.23.0\n\n\n\n\n\n\n\ngit restore --staged &lt;file&gt;\nUnstage a file\n\n\ngit restore --staged .\nUnstage all files under current working directory\n\n\ngit restore &lt;file&gt;\nDiscard changes to a modified file (irreversibly)\n\n\ngit restore . \nDiscard changes to all modified files(?) (irreversibly)"
+  },
+  {
+    "objectID": "Posts/2023-12-03_git_notes/git_notes.html#remotes",
+    "href": "Posts/2023-12-03_git_notes/git_notes.html#remotes",
+    "title": "Git Notes",
+    "section": "Remotes",
+    "text": "Remotes"
   },
   {
     "objectID": "Posts/2023-11-30_repos_with_large_files/repos_with_large_files.html",
