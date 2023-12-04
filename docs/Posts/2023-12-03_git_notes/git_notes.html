@@ -231,7 +231,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#unmodify-a-file-git-checkout" id="toc-unmodify-a-file-git-checkout" class="nav-link" data-scroll-target="#unmodify-a-file-git-checkout">Unmodify a file (git checkout –)</a></li>
   <li><a href="#undoing-with-git-restore-easier" id="toc-undoing-with-git-restore-easier" class="nav-link" data-scroll-target="#undoing-with-git-restore-easier">Undoing with git restore (easier)</a></li>
   </ul></li>
-  <li><a href="#remotes" id="toc-remotes" class="nav-link" data-scroll-target="#remotes">Remotes</a></li>
+  <li><a href="#remotes" id="toc-remotes" class="nav-link" data-scroll-target="#remotes">Remotes</a>
+  <ul class="collapse">
+  <li><a href="#get-info-on-remotes" id="toc-get-info-on-remotes" class="nav-link" data-scroll-target="#get-info-on-remotes">Get info on remotes</a></li>
+  <li><a href="#fetchpull-from-remotes" id="toc-fetchpull-from-remotes" class="nav-link" data-scroll-target="#fetchpull-from-remotes">Fetch/pull from remotes</a></li>
+  <li><a href="#push-to-remote-git-push" id="toc-push-to-remote-git-push" class="nav-link" data-scroll-target="#push-to-remote-git-push">Push to remote (git push)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -612,10 +617,70 @@ Note
 </section>
 <section id="remotes" class="level2">
 <h2 class="anchored" data-anchor-id="remotes">Remotes</h2>
+<section id="get-info-on-remotes" class="level3">
+<h3 class="anchored" data-anchor-id="get-info-on-remotes">Get info on remotes</h3>
+<table class="table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><code>git remote</code> </td>
+<td>Show shortnames of remotes</td>
+</tr>
+<tr class="even">
+<td><code>git remote -v</code></td>
+<td>Show shortnames + URLs for each remote</td>
+</tr>
+<tr class="odd">
+<td><code>git remote add &lt;shortname&gt; &lt;url&gt;</code></td>
+<td>Add new remote repository</td>
+</tr>
+</tbody>
+</table>
+<p>When you <code>git clone</code> a repo, this will automatically add that repo to your remotes under the shortname <code>origin</code></p>
+</section>
+<section id="fetchpull-from-remotes" class="level3">
+<h3 class="anchored" data-anchor-id="fetchpull-from-remotes">Fetch/pull from remotes</h3>
+<p><code>git fetch &lt;shortname&gt;</code></p>
+<ul>
+<li>Fetch all info from a remote, e.g.&nbsp;<code>&lt;shortname&gt;/main</code> or <code>&lt;shortname&gt;/&lt;branch_name&gt;</code> will be available to merge into another branch, checkout to a local branch, etc.</li>
+</ul>
+<p><code>git fetch origin</code></p>
+<ul>
+<li>Fetch any new work from origin that has been pushed to the server since you last cloned or last fetched</li>
+<li>This will only download the data to the local repo, it does not automatically merge it with any work you’ve done or modify your current work. You must merge it into your work.
+<ul>
+<li>If current branch “tracks” a remote branch, use <code>git pull</code> to automatically fetch the remote branch and then merge it into your current branch</li>
+<li><code>git clone</code> automatically sets your local main/master branch to track the remote main/master branch</li>
+<li><code>git pull</code> “generally fetches data from the server you originally cloned from and automatically tries to merge it into the code you’re currently working on”</li>
+</ul></li>
+</ul>
+<p>Quote from book:</p>
+<blockquote class="blockquote">
+<p>From Git version 2.27 onward, git pull will give a warning if the pull.rebase variable is not set. Git will keep warning you until you set the variable.</p>
+<p>If you want the default behavior of Git (fast-forward if possible, else create a merge commit): <code>git config --global pull.rebase "false"</code></p>
+<p>If you want to rebase when pulling: <code>git config --global pull.rebase "true”</code></p>
+</blockquote>
+</section>
+<section id="push-to-remote-git-push" class="level3">
+<h3 class="anchored" data-anchor-id="push-to-remote-git-push">Push to remote (git push)</h3>
+<p><code>git push &lt;remote&gt; &lt;branch&gt;</code></p>
+<p><code>git push &lt;origin&gt; &lt;my_branch&gt;</code></p>
+<ul>
+<li>Push your branch with shortname <code>my_branch</code> to the remote with the shortname <code>origin</code></li>
+</ul>
+<p><code>git push origin main</code></p>
+<ul>
+<li>Push your main branch to the remote shortnamed “origin”</li>
+<li>If two people have cloned the repo and then push upstream, the second push would be rejected. The second person would have to fetch their work first, incorporate it, and <em>then</em> push.</li>
+</ul>
 
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1334,7 +1399,55 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb16-272"><a href="#cb16-272" aria-hidden="true" tabindex="-1"></a>| <span class="in">`git restore &lt;file&gt;`</span>                             | Discard changes to a modified file (irreversibly)       |</span>
 <span id="cb16-273"><a href="#cb16-273" aria-hidden="true" tabindex="-1"></a>| <span class="in">`git restore .`</span>  &lt;div style="width:275px"&gt;&lt;/div&gt; | Discard changes to all modified files(?) (irreversibly) |</span>
 <span id="cb16-274"><a href="#cb16-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-275"><a href="#cb16-275" aria-hidden="true" tabindex="-1"></a><span class="fu">## Remotes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-275"><a href="#cb16-275" aria-hidden="true" tabindex="-1"></a><span class="fu">## Remotes</span></span>
+<span id="cb16-276"><a href="#cb16-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-277"><a href="#cb16-277" aria-hidden="true" tabindex="-1"></a><span class="fu">### Get info on remotes</span></span>
+<span id="cb16-278"><a href="#cb16-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-279"><a href="#cb16-279" aria-hidden="true" tabindex="-1"></a>|                                               |                                                                                                    |</span>
+<span id="cb16-280"><a href="#cb16-280" aria-hidden="true" tabindex="-1"></a>| --------------------------------------------- | -------------------------------------------------------------------------------------------------- |</span>
+<span id="cb16-281"><a href="#cb16-281" aria-hidden="true" tabindex="-1"></a>| <span class="in">`git remote`</span> &lt;div style="width:500px"&gt;&lt;/div&gt; | Show shortnames of remotes                                                                         |</span>
+<span id="cb16-282"><a href="#cb16-282" aria-hidden="true" tabindex="-1"></a>| <span class="in">`git remote -v`</span>                               | Show shortnames + URLs for each remote                                                             |</span>
+<span id="cb16-283"><a href="#cb16-283" aria-hidden="true" tabindex="-1"></a>| <span class="in">`git remote add &lt;shortname&gt; &lt;url&gt;`</span>            | Add new remote repository                                                                          |</span>
+<span id="cb16-284"><a href="#cb16-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-285"><a href="#cb16-285" aria-hidden="true" tabindex="-1"></a>When you <span class="in">`git clone`</span> a repo, this will automatically add that repo to your remotes under the shortname <span class="in">`origin`</span></span>
+<span id="cb16-286"><a href="#cb16-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-287"><a href="#cb16-287" aria-hidden="true" tabindex="-1"></a><span class="fu">### Fetch/pull from remotes</span></span>
+<span id="cb16-288"><a href="#cb16-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-289"><a href="#cb16-289" aria-hidden="true" tabindex="-1"></a><span class="in">`git fetch &lt;shortname&gt;`</span></span>
+<span id="cb16-290"><a href="#cb16-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-291"><a href="#cb16-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Fetch all info from a remote, e.g. <span class="in">`&lt;shortname&gt;/main`</span> or <span class="in">`&lt;shortname&gt;/&lt;branch_name&gt;`</span> will be available to merge into another branch, checkout to a local branch, etc.</span>
+<span id="cb16-292"><a href="#cb16-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-293"><a href="#cb16-293" aria-hidden="true" tabindex="-1"></a><span class="in">`git fetch origin`</span></span>
+<span id="cb16-294"><a href="#cb16-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-295"><a href="#cb16-295" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Fetch any new work from origin that has been pushed to the server since you last cloned or last fetched</span>
+<span id="cb16-296"><a href="#cb16-296" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>This will only download the data to the local repo, it does not automatically merge it with any work you've done or modify your current work. You must merge it into your work.</span>
+<span id="cb16-297"><a href="#cb16-297" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>If current branch "tracks" a remote branch, use <span class="in">`git pull`</span> to automatically fetch the remote branch and then merge it into your current branch</span>
+<span id="cb16-298"><a href="#cb16-298" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`git clone`</span> automatically sets your local main/master branch to track the remote main/master branch</span>
+<span id="cb16-299"><a href="#cb16-299" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`git pull`</span> "generally fetches data from the server you originally cloned from and automatically tries to merge it into the code you're currently working on"</span>
+<span id="cb16-300"><a href="#cb16-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-301"><a href="#cb16-301" aria-hidden="true" tabindex="-1"></a>Quote from book:</span>
+<span id="cb16-302"><a href="#cb16-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-303"><a href="#cb16-303" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; From Git version 2.27 onward, git pull will give a warning if the pull.rebase variable is not set. Git will keep warning you until you set the variable.</span></span>
+<span id="cb16-304"><a href="#cb16-304" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb16-305"><a href="#cb16-305" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; If you want the default behavior of Git (fast-forward if possible, else create a merge commit): </span><span class="in">`git config --global pull.rebase "false"`</span></span>
+<span id="cb16-306"><a href="#cb16-306" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb16-307"><a href="#cb16-307" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; If you want to rebase when pulling: </span><span class="in">`git config --global pull.rebase "true”`</span></span>
+<span id="cb16-308"><a href="#cb16-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-309"><a href="#cb16-309" aria-hidden="true" tabindex="-1"></a><span class="fu">### Push to remote (git push)</span></span>
+<span id="cb16-310"><a href="#cb16-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-311"><a href="#cb16-311" aria-hidden="true" tabindex="-1"></a><span class="in">`git push &lt;remote&gt; &lt;branch&gt;`</span></span>
+<span id="cb16-312"><a href="#cb16-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-313"><a href="#cb16-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-314"><a href="#cb16-314" aria-hidden="true" tabindex="-1"></a><span class="in">`git push &lt;origin&gt; &lt;my_branch&gt;`</span></span>
+<span id="cb16-315"><a href="#cb16-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-316"><a href="#cb16-316" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Push your branch with shortname <span class="in">`my_branch`</span> to the remote with the shortname <span class="in">`origin`</span></span>
+<span id="cb16-317"><a href="#cb16-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-318"><a href="#cb16-318" aria-hidden="true" tabindex="-1"></a><span class="in">`git push origin main`</span></span>
+<span id="cb16-319"><a href="#cb16-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-320"><a href="#cb16-320" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Push your main branch to the remote shortnamed "origin"</span>
+<span id="cb16-321"><a href="#cb16-321" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>If two people have cloned the repo and then push upstream, the second push would be rejected. The second person would have to fetch their work first, incorporate it, and *then* push.</span>
+<span id="cb16-322"><a href="#cb16-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-323"><a href="#cb16-323" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
