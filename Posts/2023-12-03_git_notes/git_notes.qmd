@@ -2,6 +2,7 @@
 title: "Git Notes"
 author: "Michael Knitz"
 date: "2023-12-03"
+date-modified: "2023-12-04"
 categories: [git, workflow]
 format:
   html:
@@ -320,5 +321,5 @@ Quote from book:
 - Push your main branch to the remote shortnamed "origin"
 - If two people have cloned the repo and then push upstream, the second push would be rejected. The second person would have to fetch their work first, incorporate it, and *then* push.
 
-
+(TBC... work in progress)
 

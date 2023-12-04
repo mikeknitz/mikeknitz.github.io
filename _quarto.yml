@@ -26,6 +26,7 @@ website:
           - "Posts/2023-11-29_functions_in_environment/functions_in_environment.qmd"
       - section: "Misc"
         contents:
+          - "Posts/2023-12-03_git_notes/git_notes.qmd"
           - "Posts/2023-11-30_repos_with_large_files/repos_with_large_files.qmd"
 
 format:
