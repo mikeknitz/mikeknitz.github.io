@@ -187,5 +187,26 @@
     "title": "Repos with large files",
     "section": "",
     "text": "Large files can make git projects a pain. Documenting my evolving workflow here.\nFor easy projects with small files and non-sensitive data, things can be as easy as as setting up a repo, running git clone, and adding just a couple lines to .gitignore. When I want to use a different machine, cloning there is easy.\nWith large files, using something like Managing large files - GitHub Docs is an option, but I prefer to sync these files with OneDrive or iCloud or Dropbox. This also makes it easy to work with associated binary files like Powerpoints and Excel documents.\nThere is the option of literally syncing the entire repo, including the .git folder, but with thousands of files related to tracking, I’ve run into sync errors and endless sync times trying to do this. It’s not a great option.\nWhat I’ve settled with is keeping the local copy of the repo outside of OneDrive, and keeping any large or binary files inside OneDrive, which I symlink to. Then I use a tracked script setup.sh. Something like below. It adds a number of directories to .gitignore where I store large and/or binary files. The names of these directories make it easy to remember that they are untracked. They also show up visually distinct in the file explorer in VSCode so I can remember. Everything else can be tracked in git without a care.\nWhen setting up on a different machine, I also get the benefit of documenting which untracked files are necessary to run the code.\n#!/bin/bash\n\n# Initial setup ----------------------------------------------------------------\n\n# Create .gitignore\nif [ ! -f .gitignore ]; then\n  touch .gitignore\nfi\n\necho -e \"\n.DS_Store\n/.quarto/\n.quarto/\n\" &gt;&gt; .gitignore\n\n# Add untracked symlink directories to .gitignore\n# No trailing slash since these are files\n# Set git config core.symlinks false\n# Check git config --list\necho -e \"\n_main\nassets\ncache\ndata\noutput\nreports\n\" &gt;&gt; .gitignore\n\n# Symlink untracked directories ------------------------------------------------\n\n# For machine A, relative to home directory ~\nbase_path=\"path_to_synced_directory\"\n\n# Run ln\nln -s ~/\"${base_path}\"/_main .\nln -s ~/\"${base_path}\"/assets .\nln -s ~/\"${base_path}\"/cache .\nln -s ~/\"${base_path}\"/data .\nln -s ~/\"${base_path}\"/output .\nln -s ~/\"${base_path}\"/reports ."
+  },
+  {
+    "objectID": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html",
+    "href": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html",
+    "title": "Seurat example data",
+    "section": "",
+    "text": "Getting example data for use in documenting code examples, etc."
+  },
+  {
+    "objectID": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html#libraries",
+    "href": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html#libraries",
+    "title": "Seurat example data",
+    "section": "Libraries",
+    "text": "Libraries\n\nlibrary(dplyr)\nlibrary(tibble)\nlibrary(Seurat)\nlibrary(SeuratData) # devtools::install_github(\"satijalab/seurat-data\")"
+  },
+  {
+    "objectID": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html#load-data",
+    "href": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html#load-data",
+    "title": "Seurat example data",
+    "section": "Load data",
+    "text": "Load data\n\navail_data &lt;- SeuratData::AvailableData()\n\navail_data |&gt;\n    dplyr::filter(Dataset %in% c(\"ifnb\", \"pbmc3k\")) |&gt;\n    dplyr::select(all_of(colnames(avail_data)[1:8])) |&gt;\n    as_tibble()\n\n# A tibble: 2 × 8\n  Dataset Version    Summary                  species system ncells tech  seurat\n  &lt;chr&gt;   &lt;pckg_vrs&gt; &lt;chr&gt;                    &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; \n1 ifnb    3.1.0      IFNB-Stimulated and Con… human   PBMC    13999 10x … &lt;NA&gt;  \n2 pbmc3k  3.1.4      3k PBMCs from 10X Genom… human   PBMC     2700 10x … 3.1.4 \n\n\n\nlibrary(ifnb.SeuratData)\nifnb &lt;- Seurat::UpdateSeuratObject(ifnb)\nifnb\n\nAn object of class Seurat \n14053 features across 13999 samples within 1 assay \nActive assay: RNA (14053 features, 0 variable features)"
   }
 ]

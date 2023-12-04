@@ -1,0 +1,41 @@
+---
+title: "Seurat example data"
+author: "Michael Knitz"
+date: "2023-12-04"
+categories: [r, seurat]
+---
+
+```{r, include = FALSE}
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+Getting example data for use in documenting code examples, etc.
+
+## Libraries
+
+```{r}
+library(dplyr)
+library(tibble)
+library(Seurat)
+library(SeuratData) # devtools::install_github("satijalab/seurat-data")
+```
+
+## Load data
+
+```{r}
+avail_data <- SeuratData::AvailableData()
+
+avail_data |>
+    dplyr::filter(Dataset %in% c("ifnb", "pbmc3k")) |>
+    dplyr::select(all_of(colnames(avail_data)[1:8])) |>
+    as_tibble()
+```
+
+```{r}
+library(ifnb.SeuratData)
+ifnb <- Seurat::UpdateSeuratObject(ifnb)
+ifnb
+```

@@ -28,6 +28,7 @@ website:
         contents:
           - "Posts/2023-12-03_git_notes/git_notes.qmd"
           - "Posts/2023-11-30_repos_with_large_files/repos_with_large_files.qmd"
+          - "Posts/2023-12-04_Seurat_example_data/seurat_example_data.qmd"
 
 format:
   html:
