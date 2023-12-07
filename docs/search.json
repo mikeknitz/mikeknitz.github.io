@@ -51,7 +51,7 @@
     "href": "Posts/2023-11-28_barplots/barplots.html#libraries",
     "title": "Barplots",
     "section": "Libraries",
-    "text": "Libraries\n\nlibrary(dplyr)\nlibrary(tibble)\nlibrary(tidyr)\nlibrary(ggplot2)\nlibrary(ggnewscale)\nlibrary(cowplot)",
+    "text": "Libraries\n\nlibrary(dplyr)\nlibrary(tibble)\nlibrary(tidyr)\nlibrary(ggplot2)\nlibrary(ggnewscale)\nlibrary(cowplot)\nset.seed(12217)",
     "crumbs": [
       "R",
       "Barplots"

@@ -25,6 +25,7 @@ library(tidyr)
 library(ggplot2)
 library(ggnewscale)
 library(cowplot)
+set.seed(12217)
 ```
 
 ## Functions & Helpers
