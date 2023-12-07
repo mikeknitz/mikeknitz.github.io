@@ -10,6 +10,7 @@ project:
     - "*.qmd"
     # - "!perl_notes.qmd"
     # - "!seurat_example_data.qmd"
+    # - "!conda_notes.qmd"
 
 website:
   title: "Michael Knitz"

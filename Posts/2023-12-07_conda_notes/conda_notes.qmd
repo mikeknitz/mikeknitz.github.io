@@ -1,0 +1,40 @@
+---
+title: "Conda notes"
+author: "Michael Knitz"
+date: "2023-12-07"
+categories: [conda]
+---
+
+```{r, include = FALSE}
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+## Commands
+
+### Basic commands
+
+|                               |                                      |
+| ----------------------------- | ------------------------------------ |
+| **Remove packages**           |                                      |
+|                               |                                      |
+| **Remove packages**           |                                      |
+| `mamba remove <package_name>` |                                      |
+| `conda remove <package_name>` |                                      |
+
+### Installing packages
+
+|                                                        |                                                                                |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `mamba install -c <channel> <package>`                 | Install package                                                                |
+| `mamba search -c bioconda -f star`                     | Search for available versions in a specific channel (-c) by an exact name (-f) |
+| `mamba install -c conda-forge pandoc=3.1.2`            | Install specific version of a package                                          |
+| `mamba install -c conda-forge pandoc=3.1.2=hce30654_0` | Install specific build of a package                                            |
+
+### Questions
+
+- Updating packages? Updating the list of packages?
+- `conda list`
+- `conda config --show`
