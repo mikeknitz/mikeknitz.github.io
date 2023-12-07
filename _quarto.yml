@@ -4,6 +4,12 @@ project:
   preview:
     port: 5540
     browser: false
+  # specify specifically which to render
+  # exclude some not ready
+  render:
+    - "*.qmd"
+    - "!perl_notes.qmd"
+    - "!seurat_example_data.qmd"
 
 website:
   title: "Michael Knitz"
