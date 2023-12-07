@@ -287,5 +287,80 @@
       "Misc",
       "Git Notes"
     ]
+  },
+  {
+    "objectID": "Posts/2023-12-06_perl_notes/perl_notes.html",
+    "href": "Posts/2023-12-06_perl_notes/perl_notes.html",
+    "title": "Perl notes",
+    "section": "",
+    "text": "Modern Perl, 4e"
+  },
+  {
+    "objectID": "Posts/2023-12-06_perl_notes/perl_notes.html#hello-world",
+    "href": "Posts/2023-12-06_perl_notes/perl_notes.html#hello-world",
+    "title": "Perl notes",
+    "section": "Hello World",
+    "text": "Hello World\n\nScript\n\nprint()\nsay(): appends a newline\n\n\n#!/usr/bin/env perl\nuse strict; use warnings;\n\nsay \"Perl version: $]\";\n\nmy $var = \"Hello there\";\nprint $var;\nprint $var;\nprint \"\\n\";\nsay $var;\n\nPerl version: 5.032001\nHello thereHello there\nHello there\n\n\n\n\nOne-liner\n\n#!/bin/bash\n\n# E = enable optional features\nperl -e 'print \"Hello there\";'\nperl -E 'say \"Hello there\";'\nperl -e 'print \"Hello there\";'\n\nHello thereHello there\nHello there"
+  },
+  {
+    "objectID": "Posts/2023-12-06_perl_notes/perl_notes.html#perldoc",
+    "href": "Posts/2023-12-06_perl_notes/perl_notes.html#perldoc",
+    "title": "Perl notes",
+    "section": "Perldoc",
+    "text": "Perldoc\nFrom command line, perldoc for documentation.\n# Pipe to new vim instance for navigation, searching, etc.\nperldoc -f print | vim -\nHelp for perldoc\nperldoc perldoc\nSome interesting options\n\n\n\n-f\nFor built-in functions\n\n\n-q\nRegular expression argument\n\n\n-v\nPerl predefined variable (e.g., $\", @+)\n\n\n-i\nIgnore case"
+  },
+  {
+    "objectID": "Posts/2023-12-06_perl_notes/perl_notes.html#modules",
+    "href": "Posts/2023-12-06_perl_notes/perl_notes.html#modules",
+    "title": "Perl notes",
+    "section": "Modules",
+    "text": "Modules\nList installed modules\ncpan -l"
+  },
+  {
+    "objectID": "Posts/2023-12-06_perl_notes/perl_notes.html#coercion",
+    "href": "Posts/2023-12-06_perl_notes/perl_notes.html#coercion",
+    "title": "Perl notes",
+    "section": "Coercion",
+    "text": "Coercion\nNumeric coercion. Declare use warnings; to warn of things like this\n\nuse strict;\nuse warnings;\n\nmy $a = 1;\nmy $b = 2;\nsay($a + $b);\n\nmy $c = \"Ten\";\nmy $d = \"abcd\";\n\nsay($c + $d);\n\nArgument \"abcd\" isn't numeric in addition (+) at -e line 11.\nArgument \"Ten\" isn't numeric in addition (+) at -e line 11.\n3\n0\n\n\n\nuse strict;\nuse warnings;\nsay \"Perl version: $]\";\n\nPerl version: 5.032001"
+  },
+  {
+    "objectID": "Posts/2023-12-06_perl_notes/perl_notes.html#context",
+    "href": "Posts/2023-12-06_perl_notes/perl_notes.html#context",
+    "title": "Perl notes",
+    "section": "Context",
+    "text": "Context\nFunctions can be context aware, looking at the context of the call to determine what to do.\n\nAmount context\n# Void context\nmy_func();\n\n# Scalar context\nmy $single_result = my_func();\n\n# List context\nmy @many_results                     = my_func();\nmy ($first_elem, @rest_of_the_elems) = my_func();\n\n# List context, single-item list\nmy ($one_elem) = my_func();\n\n# List context for my_func from a call from another function\n    # I think surrounding parentheses might be needed?\n# my_func_2() would be in void context I believe\nmy_func_2( my_func() );\nExtra: Perl array vs list - Stack Overflow\n\nContext when initializing hashes"
+  },
+  {
+    "objectID": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html",
+    "href": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html",
+    "title": "Seurat example data",
+    "section": "",
+    "text": "Getting example data for use in documenting code examples, etc.",
+    "crumbs": [
+      "Misc",
+      "Seurat example data"
+    ]
+  },
+  {
+    "objectID": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html#libraries",
+    "href": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html#libraries",
+    "title": "Seurat example data",
+    "section": "Libraries",
+    "text": "Libraries\n\nlibrary(dplyr)\nlibrary(tibble)\nlibrary(Seurat)\nlibrary(SeuratData) # devtools::install_github(\"satijalab/seurat-data\")",
+    "crumbs": [
+      "Misc",
+      "Seurat example data"
+    ]
+  },
+  {
+    "objectID": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html#load-data",
+    "href": "Posts/2023-12-04_Seurat_example_data/seurat_example_data.html#load-data",
+    "title": "Seurat example data",
+    "section": "Load data",
+    "text": "Load data\n\navail_data &lt;- SeuratData::AvailableData()\n\navail_data |&gt;\n    dplyr::filter(Dataset %in% c(\"ifnb\", \"pbmc3k\")) |&gt;\n    dplyr::select(all_of(colnames(avail_data)[1:8])) |&gt;\n    as_tibble()\n\n# A tibble: 2 × 8\n  Dataset Version    Summary                  species system ncells tech  seurat\n  &lt;chr&gt;   &lt;pckg_vrs&gt; &lt;chr&gt;                    &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; \n1 ifnb    3.1.0      IFNB-Stimulated and Con… human   PBMC    13999 10x … &lt;NA&gt;  \n2 pbmc3k  3.1.4      3k PBMCs from 10X Genom… human   PBMC     2700 10x … 3.1.4 \n\n\n\nlibrary(ifnb.SeuratData)\nifnb &lt;- Seurat::UpdateSeuratObject(ifnb)\nifnb\n\nAn object of class Seurat \n14053 features across 13999 samples within 1 assay \nActive assay: RNA (14053 features, 0 variable features)",
+    "crumbs": [
+      "Misc",
+      "Seurat example data"
+    ]
   }
 ]

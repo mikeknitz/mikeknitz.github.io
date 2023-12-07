@@ -44,3 +44,91 @@ perl -e 'print "Hello there";'
 perl -E 'say "Hello there";'
 perl -e 'print "Hello there";'
 ```
+
+## Perldoc
+
+From command line, `perldoc` for documentation.
+
+``` bash
+# Pipe to new vim instance for navigation, searching, etc.
+perldoc -f print | vim -
+```
+
+Help for perldoc
+
+``` bash
+perldoc perldoc
+```
+
+Some interesting options
+
+|      |                                             |
+| ---- | ------------------------------------------- |
+| `-f` | For built-in functions                      |
+| `-q` | Regular expression argument                 |
+| `-v` | Perl predefined variable (e.g., `$"`, `@+`) |
+| `-i` | Ignore case                                 |
+
+## Modules
+
+List installed modules
+
+``` bash
+cpan -l
+```
+
+## Context
+
+Functions can be *context aware*, looking at the context of the call to determine what to do.
+
+### Amount context
+
+``` perl
+# Void context
+my_func();
+
+# Scalar context
+my $single_result = my_func();
+
+# List context
+my @many_results                     = my_func();
+my ($first_elem, @rest_of_the_elems) = my_func();
+
+# List context, single-item list
+my ($one_elem) = my_func();
+
+# List context for my_func from a call from another function
+    # I think surrounding parentheses might be needed?
+# my_func_2() would be in void context I believe
+my_func_2( my_func() );
+```
+
+Extra: [Perl array vs list - Stack Overflow](https://stackoverflow.com/questions/6023821/perl-array-vs-list)
+
+#### Context when initializing hashes
+
+## Coercion
+
+Numeric coercion. Declare `use warnings;` to warn of things like this
+
+```{perl}
+#| code-line-numbers: true
+
+use strict;
+use warnings;
+
+my $a = 1;
+my $b = 2;
+say($a + $b);
+
+my $c = "Ten";
+my $d = "abcd";
+
+say($c + $d);
+```
+
+```{perl}
+use strict;
+use warnings;
+say "Perl version: $]";
+```
