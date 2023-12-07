@@ -1,0 +1,46 @@
+---
+title: "Perl notes"
+author: "Michael Knitz"
+date: "2023-12-06"
+categories: [perl]
+---
+
+```{r, include = FALSE}
+loadNamespace("knitr")
+knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
+    out.width = "80%", dpi = 150, results = "hold", fig.show = "hold",
+    warning = FALSE)
+```
+
+- [Modern Perl, 4e](http://modernperlbooks.com/books/modern_perl_2016/index.html)
+  
+## Hello World
+
+### Script
+
+- `print()`
+- `say()`: appends a newline
+  
+```{perl}
+#!/usr/bin/env perl
+use strict; use warnings;
+
+say "Perl version: $]";
+
+my $var = "Hello there";
+print $var;
+print $var;
+print "\n";
+say $var;
+```
+
+### One-liner
+
+```{bash}
+#!/bin/bash
+
+# E = enable optional features
+perl -e 'print "Hello there";'
+perl -E 'say "Hello there";'
+perl -e 'print "Hello there";'
+```
