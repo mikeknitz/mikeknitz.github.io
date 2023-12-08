@@ -73,7 +73,7 @@ conda config --set auto_activate_base false
 conda install anaconda-clean
 anaconda-clean --yes # Will leave a backup dir
 rm -rf ~/miniconda3
-rm miniconda.installer.sh
+rm miniconda-installer.sh
 ```
 
 Then clean up lines in `.zshrc`, etc.
