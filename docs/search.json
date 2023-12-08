@@ -368,13 +368,41 @@
     "href": "Posts/2023-12-07_conda_notes/conda_notes.html",
     "title": "Conda notes",
     "section": "",
-    "text": "conda list\nList packages in current environment\n\n\n\n\n\n\nRemove packages\n\n\n\nmamba remove &lt;package_name&gt;\n\n\n\nconda remove &lt;package_name&gt;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nmamba install -c &lt;channel&gt; &lt;package&gt;\nInstall package\n\n\nmamba search -c bioconda -f star\nSearch for available versions in a specific channel (-c) by an exact name (-f)\n\n\nmamba install -c conda-forge pandoc=3.1.2\nInstall specific version of a package\n\n\nmamba install -c conda-forge pandoc=3.1.2=hce30654_0\nInstall specific build of a package"
+    "text": "Find miniconda URL for installation on system: Miniconda — conda documentation\nSeems like miniconda is designed to be installed in $HOME, this will place a miniconda3 folder in ~\nCONDA_URL= # add url here\ncurl -L ${CONDA_URL} &gt; miniconda-installer.sh\nbash miniconda-installer.sh -b\n\n# Adds some config lines to your config\n~/miniconda3/condabin/conda init zsh # assuming your shell is zsh\nChange explicit reference to home directory\nE.g., replace all /Users/myusername with a variable to home\n# Not sure why I made it indirect like this originally\nhomedir=$(echo $HOME)\n\n# Then use ${homedir} within double quoted paths\n\n\nNewest channels added will take priority. Below, conda-forge is highest priority.\nconda config --add channels bioconda\nconda config --add channels conda-forge\n\n\n\nconda update -y -n base conda\nconda install mamba -n base -c conda-forge -y\n\n\n\nDo not auto activate base conda in terminal\nconda config --set auto_activate_base false\n\n# can activate a different one instead on startup\n# by adding conda activate &lt;env&gt; to ~/.zshrc"
   },
   {
     "objectID": "Posts/2023-12-07_conda_notes/conda_notes.html#commands",
     "href": "Posts/2023-12-07_conda_notes/conda_notes.html#commands",
     "title": "Conda notes",
+    "section": "Commands",
+    "text": "Commands\n\nBasic commands\n\n\n\n\n\n\n\nconda list\nList installed packages\n\n\nconda list --export &gt; package_list.txt\nExport installed packages and versions\n\n\nconda create -n &lt;new_env&gt; --file package_list.txt\nCreate new environment using those packages and versions\n\n\n\n\n\n\nconda config --show\nShow config\n\n\nconda config --show channels\nShow activated channels\n\n\n\n\n\nRemove packages\n\n\n\nmamba remove &lt;package_name&gt;\n\n\n\nconda remove &lt;package_name&gt;\n\n\n\n\n\n\nInstalling packages\n\n\n\n\n\n\n\nmamba install -c &lt;channel&gt; &lt;package&gt;\nInstall package\n\n\nmamba search -c bioconda -f star \nSearch for available versions in a specific channel (-c) by an exact name (-f)\n\n\nmamba install -c conda-forge pandoc=3.1.2\nInstall specific version of a package\n\n\nmamba install -c conda-forge pandoc=3.1.2=hce30654_0\nInstall specific build of a package\n\n\n\nCan alternatively use conda install if something doesn’t go right with mamba\n\n\nEnvironments\n\n\n\n\n\n\n\nconda info --envs \nList all your environments\n\n\nconda create -n &lt;name_of_env&gt;\nCreate an environment\n\n\nconda create -n &lt;name&gt; -y python=3.12 numpy\nCreate environment with certain packages, some with specified versions\n\n\nconda deactivate (go to base), thenconda remove --name &lt;env_name&gt; --all\nDelete an environmentYou need the --all flag to remove all its packages too, otherwise you would have to specify packages to remove"
+  },
+  {
+    "objectID": "Posts/2023-12-07_conda_notes/conda_notes.html#installation",
+    "href": "Posts/2023-12-07_conda_notes/conda_notes.html#installation",
+    "title": "Conda notes",
     "section": "",
-    "text": "conda list\nList packages in current environment\n\n\n\n\n\n\nRemove packages\n\n\n\nmamba remove &lt;package_name&gt;\n\n\n\nconda remove &lt;package_name&gt;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nmamba install -c &lt;channel&gt; &lt;package&gt;\nInstall package\n\n\nmamba search -c bioconda -f star\nSearch for available versions in a specific channel (-c) by an exact name (-f)\n\n\nmamba install -c conda-forge pandoc=3.1.2\nInstall specific version of a package\n\n\nmamba install -c conda-forge pandoc=3.1.2=hce30654_0\nInstall specific build of a package"
+    "text": "Find miniconda URL for installation on system: Miniconda — conda documentation\nSeems like miniconda is designed to be installed in $HOME, this will place a miniconda3 folder in ~\nCONDA_URL= # add url here\ncurl -L ${CONDA_URL} &gt; miniconda-installer.sh\nbash miniconda-installer.sh -b\n\n# Adds some config lines to your config\n~/miniconda3/condabin/conda init zsh # assuming your shell is zsh\nChange explicit reference to home directory\nE.g., replace all /Users/myusername with a variable to home\n# Not sure why I made it indirect like this originally\nhomedir=$(echo $HOME)\n\n# Then use ${homedir} within double quoted paths\n\n\nNewest channels added will take priority. Below, conda-forge is highest priority.\nconda config --add channels bioconda\nconda config --add channels conda-forge\n\n\n\nconda update -y -n base conda\nconda install mamba -n base -c conda-forge -y\n\n\n\nDo not auto activate base conda in terminal\nconda config --set auto_activate_base false\n\n# can activate a different one instead on startup\n# by adding conda activate &lt;env&gt; to ~/.zshrc"
+  },
+  {
+    "objectID": "Posts/2023-12-07_conda_notes/conda_notes.html#homebrew",
+    "href": "Posts/2023-12-07_conda_notes/conda_notes.html#homebrew",
+    "title": "Conda notes",
+    "section": "Homebrew",
+    "text": "Homebrew\nSeems reasonable to conda deactivate before installing / updating hombrew packages:\n\npython - Best Practices with Anaconda and Brew - Stack Overflow\nbash - How do I prevent Conda from activating the base environment by default? - Stack Overflow"
+  },
+  {
+    "objectID": "Posts/2023-12-07_conda_notes/conda_notes.html#questions",
+    "href": "Posts/2023-12-07_conda_notes/conda_notes.html#questions",
+    "title": "Conda notes",
+    "section": "Questions",
+    "text": "Questions\n\nUpdating packages? Updating the list of packages?\nconda list\nconda config --show"
+  },
+  {
+    "objectID": "Posts/2023-12-07_conda_notes/conda_notes.html#uninstalling-starting-fresh",
+    "href": "Posts/2023-12-07_conda_notes/conda_notes.html#uninstalling-starting-fresh",
+    "title": "Conda notes",
+    "section": "Uninstalling / starting fresh",
+    "text": "Uninstalling / starting fresh\n\npip - How to uninstall mini conda? python - Stack Overflow\n\nconda install anaconda-clean\nanaconda-clean --yes # Will leave a backup dir\nrm -rf ~/miniconda3\nrm miniconda.installer.sh\nThen clean up lines in .zshrc, etc."
   }
 ]

@@ -12,29 +12,120 @@ knitr::opts_chunk$set(comment = "", fig.align = "center", message = FALSE,
     warning = FALSE)
 ```
 
+## Installation
+
+Find miniconda URL for installation on system: [Miniconda — conda documentation](https://docs.conda.io/en/latest/miniconda.html)
+
+Seems like miniconda is designed to be installed in `$HOME`, this will place a miniconda3 folder in `~`
+
+``` bash
+CONDA_URL= # add url here
+curl -L ${CONDA_URL} > miniconda-installer.sh
+bash miniconda-installer.sh -b
+
+# Adds some config lines to your config
+~/miniconda3/condabin/conda init zsh # assuming your shell is zsh
+```
+
+Change explicit reference to home directory
+
+E.g., replace all `/Users/myusername` with a variable to home
+
+``` bash
+# Not sure why I made it indirect like this originally
+homedir=$(echo $HOME)
+
+# Then use ${homedir} within double quoted paths
+```
+
+### Add channels
+
+Newest channels added will take priority. Below, `conda-forge` is highest priority.
+
+``` bash
+conda config --add channels bioconda
+conda config --add channels conda-forge
+```
+
+### Update and install mamba
+
+``` bash
+conda update -y -n base conda
+conda install mamba -n base -c conda-forge -y
+```
+
+### Set some config settings
+
+Do not auto activate base conda in terminal
+
+``` bash
+conda config --set auto_activate_base false
+
+# can activate a different one instead on startup
+# by adding conda activate <env> to ~/.zshrc
+```
+
+## Uninstalling / starting fresh
+
+- [pip - How to uninstall mini conda? python - Stack Overflow](https://stackoverflow.com/questions/29596350/how-to-uninstall-mini-conda-python)
+
+``` bash
+conda install anaconda-clean
+anaconda-clean --yes # Will leave a backup dir
+rm -rf ~/miniconda3
+rm miniconda.installer.sh
+```
+
+Then clean up lines in `.zshrc`, etc.
+
+
 ## Commands
 
 ### Basic commands
 
-|                               |                                      |
-| ----------------------------- | ------------------------------------ |
-| **Remove packages**           |                                      |
-|                               |                                      |
-| **Remove packages**           |                                      |
-| `mamba remove <package_name>` |                                      |
-| `conda remove <package_name>` |                                      |
+|                                                     |                                                          |
+| --------------------------------------------------- | -------------------------------------------------------- |
+| `conda list`                                        | List installed packages                                  |
+| `conda list --export > package_list.txt`            | Export installed packages and versions                   |
+| `conda create -n <new_env> --file package_list.txt` | Create new environment using those packages and versions |
+
+|                                |                         |
+| ------------------------------ | ----------------------- |
+| `conda config --show`          | Show config             |
+| `conda config --show channels` | Show activated channels |
+
+### Remove packages
+
+|                               |     |
+| ----------------------------- | --- |
+| `mamba remove <package_name>` |     |
+| `conda remove <package_name>` |     |
 
 ### Installing packages
 
-|                                                        |                                                                                |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `mamba install -c <channel> <package>`                 | Install package                                                                |
-| `mamba search -c bioconda -f star`                     | Search for available versions in a specific channel (-c) by an exact name (-f) |
-| `mamba install -c conda-forge pandoc=3.1.2`            | Install specific version of a package                                          |
-| `mamba install -c conda-forge pandoc=3.1.2=hce30654_0` | Install specific build of a package                                            |
+|                                                                      |                                                                                |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `mamba install -c <channel> <package>`                               | Install package                                                                |
+| `mamba search -c bioconda -f star`  <div style="width:500px;"></div> | Search for available versions in a specific channel (-c) by an exact name (-f) |
+| `mamba install -c conda-forge pandoc=3.1.2`                          | Install specific version of a package                                          |
+| `mamba install -c conda-forge pandoc=3.1.2=hce30654_0`               | Install specific build of a package                                            |
 
-### Questions
+Can alternatively use `conda install` if something doesn't go right with `mamba`
 
-- Updating packages? Updating the list of packages?
-- `conda list`
-- `conda config --show`
+### Environments
+
+|                                                                    |                                                                                                                                           |
+| ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `conda info --envs`  <span style="width:500px;"></span>            | List all your environments                                                                                                                |
+| `conda create -n <name_of_env>`                                    | Create an environment                                                                                                                     |
+| `conda create -n <name> -y python=3.12 numpy`                      | Create environment with certain packages, some with specified versions                                                                    |
+| `conda deactivate` (go to base), then<br>`conda remove --name <env_name> --all` | Delete an environment<br>You need the `--all` flag to remove all its packages too, otherwise you would have to specify packages to remove |
+
+
+  
+## Homebrew
+
+Seems reasonable to `conda deactivate` before installing / updating hombrew packages:
+
+- [python - Best Practices with Anaconda and Brew - Stack Overflow](https://stackoverflow.com/questions/42859781/best-practices-with-anaconda-and-brew)
+- [bash - How do I prevent Conda from activating the base environment by default? - Stack Overflow](https://stackoverflow.com/questions/54429210/how-do-i-prevent-conda-from-activating-the-base-environment-by-default)
