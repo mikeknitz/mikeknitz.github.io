@@ -274,6 +274,20 @@ git checkout -- <file>
 | `git restore <file>`                             | Discard changes to a modified file (irreversibly)       |
 | `git restore .`  <div style="width:275px"></div> | Discard changes to all modified files(?) (irreversibly) |
 
+### git clean
+
+|                    |                                           |
+| ------------------ | ----------------------------------------- |
+| `git clean --help` | Show help                                 |
+| `git clean -h`     | Quick help                                |
+| `git clean -n`     | Dry run                                   |
+| `git clean -f`     | Git clean untracked files                 |
+| `git clean -fd`    | Git clean untracked files and directories |
+
+- Always run with `-n` first, e.g. `git clean -nfd` then `git clean -fd`
+- Goes well with a `git restore .` first if you want to undo everything from the current changes to the working tree
+
+
 ## Remotes
 
 ### Get info on remotes
